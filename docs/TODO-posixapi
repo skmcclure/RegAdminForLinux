@@ -1,0 +1,129 @@
+/* {{{ preamble
+ * nstdreg.h
+ *
+ * NonStandardRegistry
+ *
+ * POSIX-like routines that provide access to the registry
+ *
+ * Authors:	Sean Loaring
+ *              James LewisMoss <jlm@racemi.com>
+ *
+ * Copyright (c) 2006 Racemi Inc
+ * Copyright (c) 2005-2006 Sean Loaring
+ *
+ * This program is free software; you can redistribute it and/or modify * it under the terms of the GNU General Public License as published by * the Free Software Foundation; either version 2 of the License, or * (at your option) any later version. *  * This program is distributed in the hope that it will be useful, * but WITHOUT ANY WARRANTY; without even the implied warranty of * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program; if not, write to the Free Software
+ * Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
+ *
+ }}} */
+
+#ifndef NSTDREG_H
+#define NSTDREG_H
+
+#include <rregadmin/registry/registry.h>
+#include <rregadmin/winapi/rlReg.h>
+#include <rregadmin/util/macros.h>
+
+G_BEGIN_DECLS
+
+#ifndef PATH_MAX
+#define PATH_MAX 1024
+#endif
+
+#define RTYPE_VALUE     0
+#define RTYPE_KEY       1
+#define RTYPE_NOT_FOUND	2
+#define RTYPE_FAKEKEY	3
+
+struct ns_dirent
+{
+    char filename[PATH_MAX];
+    unsigned char type;
+};
+
+typedef struct ns_dir_handle
+{
+    //struct parsdpath *p;
+    //char path[PATH_MAX];
+    ustring *vb_path;
+    int rdidx;  //index for ns_readdir
+    int rd_donekeys;
+    rl_hkey hk;
+} NREGDIR;
+
+
+typedef struct ns_handle
+{
+    //struct parsdpath *p;
+    char path[PATH_MAX];
+    guint32 type;
+    guint32 blen;
+    char *buf;
+    rl_hkey parent;
+} NREGH;
+
+void ns_init (void);
+
+int ns_finddelim (const char *p, char delim);
+
+//open an ns handle
+NREGDIR *ns_opendir (const char *path);
+//just like ns_open, but *path can be relative to h
+NREGDIR *ns_opendir_relative (NREGDIR * h, const char *path);
+//close a ns handle
+void ns_closedir (NREGDIR * h);
+
+//const char *ns_getpath( NREGDIR *h );
+
+//open an ns handle
+NREGH *ns_open (const char *path);
+//just like ns_open, but *path can be relative to h
+NREGH *ns_open_relative (NREGDIR * h, const char *path);
+//close a ns handle
+void ns_close (NREGH * h);
+
+//(call it cwd?  It's tied to the directory.  get the cwd.  Statically
+//allocated per handle, overwritten on subsequent calls
+char *ns_get_cwd (NREGDIR * h);
+
+int ns_gettype (NREGDIR * dir, const char *name);
+
+//attempt to change cwd, will try to work with relative paths, etc.
+int ns_cd (const char *path);
+
+//return the hkey associated with cwd (if one exists)
+rl_hkey ns_get_hkey (NREGDIR * h);
+
+// just like ns_unlink, but *path can be relative to h
+int ns_unlink_relative (NREGDIR * h, const char *path);
+int ns_unlink (const char *path);
+int ns_set_value_relativeT (NREGDIR * h, const char *path, int type,
+                            const char *value, int len);
+int ns_set_valueT (const char *path, int type, const char *value, int len);
+int ns_mkdir (const char *path, int flags);
+
+#define MKDIR_P		1
+int ns_mkdir_relative (NREGDIR * h, const char *path);
+char *ns_strerror (int no);
+
+int ns_read_valueT (const char *path, guint32 *type, ustring *vb);
+
+//print a value to stdout in regedit style
+void ns_print_val (FILE * out, const char *name, guint32 type,
+                   ustring *val);
+
+struct ns_dirent *ns_readdir (NREGDIR * h);
+
+void ns_rewinddir (NREGDIR * h);
+
+int ns_read_dword (const char *path, int *out);
+
+int reg_merge (const char *path);
+
+G_END_DECLS
+
+#endif
+
+// vim600: set foldlevel=0 foldmethod=marker:

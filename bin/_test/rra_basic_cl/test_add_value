@@ -1,0 +1,17 @@
+#! /usr/bin/env python
+
+from ef_utils import *
+
+def my_test(self, d, test_dir, **kwds):
+    ef_debug_out("Adding value foo=bleh to %s" % d[0])
+    self.assertGoodProg(CL_PROG, test_dir, "add_value", d[0], "foo", "bleh")
+    self.assertGoodProg(CL_PROG, test_dir, "has_value", d[0], "foo")
+    return
+
+class AddValueTest(EfTest):
+    pass
+
+add_key_example_tests(my_test, AddValueTest)
+
+if __name__ == '__main__':
+    unittest.main()

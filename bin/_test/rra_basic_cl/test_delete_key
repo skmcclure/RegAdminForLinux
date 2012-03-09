@@ -1,0 +1,19 @@
+#! /usr/bin/env python
+
+from ef_utils import *
+
+def my_test(self, d, test_dir, **kwds):
+    if self.is_good_prog(CL_PROG, test_dir, "has_key", d[0]):
+        if self.is_good_prog(CL_PROG, test_dir, "is_deletable_key", d[0]):
+            ef_debug_out("Deleting %s" % d[0])
+            self.assertGoodProg(CL_PROG, test_dir, "delete_key", d[0])
+            self.assertBadProg(CL_PROG, test_dir, "has_key", d[0])
+    return
+
+class DeleteKeyTest(EfTest):
+    pass
+
+add_key_example_tests(my_test, DeleteKeyTest)
+
+if __name__ == '__main__':
+    unittest.main()

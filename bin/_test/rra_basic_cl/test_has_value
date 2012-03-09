@@ -1,0 +1,15 @@
+#! /usr/bin/env python
+
+from ef_utils import *
+
+def my_test(self, d, test_dir, **kwds):
+    self.assertGoodProg(CL_PROG, test_dir, "has_value", d[0], d[1])
+    return
+
+class HasValueTest(EfTest):
+    pass
+
+add_value_example_tests(my_test, HasValueTest)
+
+if __name__ == '__main__':
+    unittest.main()

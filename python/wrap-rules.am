@@ -1,0 +1,46 @@
+h2xml_cflags = \
+	$(CPPFLAGS) \
+	-I$(top_srcdir) \
+	-I$(top_builddir)
+export h2xml_cflags
+
+export srcdir
+export top_srcdir
+export top_builddir
+export abs_top_srcdir
+export abs_top_builddir
+export subdir
+export REALPATH
+export XML2PY
+export H2XML
+export GLIB_LIBS
+
+if HAVE_CTYPESLIB
+%_wrapper.py: %_wrapper.conf \
+              $(top_srcdir)/python/wrap_header \
+              $(top_srcdir)/python/common-env.sh
+	$(top_srcdir)/python/wrap_header $@ $<
+endif
+
+assure_init_py:
+	if test ! -e __init__.py ; then \
+	  ln -s $(srcdir)/__init__.py . ; \
+	fi
+
+.PHONY:	assure_init_py
+
+UTIL_WRAPPER_DEPENDS = \
+	__init__.py \
+	$(abs_top_srcdir)/python/rregadmin/util/glib_wrapper.py \
+	$(abs_top_srcdir)/python/rregadmin/util/icu_wrapper.py \
+	$(abs_top_srcdir)/python/rregadmin/util/ustring_wrapper.py \
+	$(abs_top_srcdir)/python/rregadmin/util/path_wrapper.py \
+	$(abs_top_srcdir)/python/rregadmin/util/value_wrapper.py
+
+HIVE_WRAPPER_DEPENDS = \
+	$(UTIL_WRAPPER_DEPENDS) \
+	$(abs_top_srcdir)/python/rregadmin/hive/types_wrapper.py
+
+REGISTRY_WRAPPER_DEPENDS = \
+	$(HIVE_WRAPPER_DEPENDS) \
+	$(abs_top_srcdir)/python/rregadmin/registry/types_wrapper.py

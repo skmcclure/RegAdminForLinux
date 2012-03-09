@@ -1,0 +1,69 @@
+
+DISTFILES.common.extra2 = run-filter Rules-filters
+
+en_US.po-update: $(DOMAIN).pot
+	$(MSGINIT) -i $< -o en_US.po -l en_US.UTF-8 --no-translator
+
+.SUFFIXES: .insert-header-filter .po-update-filter
+
+%.po-update-filter: $(DOMAIN).pot en_US.po
+	@lang=`echo $@ | sed -e 's/\.po-update-filter$$//'`; \
+	if test "$(PACKAGE)" = "gettext"; then \
+	  PATH=`pwd`/../src:$$PATH; \
+	  GETTEXTLIBDIR=`cd $(top_srcdir)/src && pwd`; \
+	  export GETTEXTLIBDIR; \
+	fi; \
+	tmpdir=`pwd`; \
+	echo "$$lang:"; \
+	ll=`echo $$lang | sed -e 's/@.*//'`; \
+	LC_ALL=C; export LC_ALL; \
+	cd $(srcdir); \
+	FILTER_PROG=gtf-`echo $@ | sed -e 's/.*@\(.*\)\.po.*/\1/'` ; \
+	PATH=$$PATH:/usr/games ; \
+	if $(MSGINIT) -i $(DOMAIN).pot --no-translator -l $$ll -o - \
+	              2>/dev/null \
+	   | $(MSGFILTER) --no-wrap --keep-header $$FILTER_PROG 2>/dev/null \
+	                  > $$tmpdir/$$lang.new.po; then \
+	  if cmp $$lang.po $$tmpdir/$$lang.new.po >/dev/null 2>&1; then \
+	    rm -f $$tmpdir/$$lang.new.po; \
+	  else \
+	    if mv -f $$tmpdir/$$lang.new.po $$lang.po; then \
+	      :; \
+	    else \
+	      echo "creation of $$lang.po failed: cannot move $$tmpdir/$$lang.new.po to $$lang.po" 1>&2; \
+	      exit 1; \
+	    fi; \
+	  fi; \
+	else \
+	  echo "creation of $$lang.po failed!" 1>&2; \
+	  rm -f $$tmpdir/$$lang.new.po; \
+	fi
+
+en_US@austro.po-update: en_US@austro.po-update-filter
+en_US@b1ff.po-update: en_US@b1ff.po-update-filter
+en_US@brooklyn.po-update: en_US@brooklyn.po-update-filter
+en_US@chef.po-update: en_US@chef.po-update-filter
+en_US@cockney.po-update: en_US@cockney.po-update-filter
+en_US@drawl.po-update: en_US@drawl.po-update-filter
+en_US@dubya.po-update: en_US@dubya.po-update-filter
+en_US@fudd.po-update: en_US@fudd.po-update-filter
+en_US@funetak.po-update: en_US@funetak.po-update-filter
+en_US@jethro.po-update: en_US@jethro.po-update-filter
+en_US@jive.po-update: en_US@jive.po-update-filter
+en_US@ken.po-update: en_US@ken.po-update-filter
+en_US@kraut.po-update: en_US@kraut.po-update-filter
+en_US@newspeak.po-update: en_US@newspeak.po-update-filter
+en_US@pansy.po-update: en_US@pansy.po-update-filter
+en_US@pirate.po-update: en_US@pirate.po-update-filter
+en_US@postmodern.po-update: en_US@postmodern.po-update-filter
+en_US@redneck.po-update: en_US@redneck.po-update-filter
+en_US@valspeak.po-update: en_US@valspeak.po-update-filter
+en_US@warez.po-update: en_US@warez.po-update-filter
+
+mostlyclean: mostlyclean-filters
+mostlyclean-filters:
+	rm -f *.insert-header-filter *.po-update-filter
+
+# Local variables:
+# mode: makefile
+# End:

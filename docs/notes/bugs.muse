@@ -1,0 +1,11 @@
+
+** Current
+
+- Not handling some acentry type codes (0x20 and 0x23 specifically)
+
+** Done
+
+ - Increment use count when securitydescriptorcell used again.
+   - jl 07/3/26 4:26pm.
+ - Link securitydescriptorcell into loop when created.
+   - jl 07/3/26 4:26pm.

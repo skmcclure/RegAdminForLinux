@@ -1,0 +1,13 @@
+#! /bin/sh
+
+set -e
+
+. $SCRIPT_LIB_DIR/assert.sh
+
+assert_true $CL_PROG --help > /dev/null 2>&1
+assert_true $CL_PROG -\? > /dev/null 2>&1
+assert_true $CL_PROG --usage > /dev/null 2>&1
+assert_true $CL_PROG --version > /dev/null 2>&1
+assert_true $CL_PROG -V > /dev/null 2>&1
+
+exit 0

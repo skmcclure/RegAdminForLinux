@@ -1,0 +1,82 @@
+#! /usr/bin/env python
+
+from ef_utils import *
+
+index = 0
+
+def parse_show_out(val):
+
+    lines = val.split("\n")
+
+    capture = False
+    data_val = ""
+
+    for line in lines:
+        if capture:
+            if line != "":
+                if data_val != "":
+                    data_val = data_val + "\n"
+                data_val = data_val + line
+        if line == "  Data:":
+            capture = True
+
+    return data_val
+
+#my_prog = ( "libtool", "--mode=execute", "valgrind", "-q", "--tool=callgrind", CL_PROG )
+my_prog = CL_PROG
+
+def my_test(self, d, test_dir, **kwds):
+    global index
+
+    val = "This % is a %TEST string %systemroot%"
+    multi_expected = "%s\0\0" % val
+
+    if index % 3 == 0:
+        ef_debug_out("Adding value mstr1(MULTI_SZ)='%s' to %s" % (val, d[0]))
+        self.assertGoodProg(my_prog, test_dir, "add_value", d[0], "mstr1",
+                            "MULTI_SZ", val)
+        self.assertGoodProg(my_prog, test_dir, "has_value", d[0], "mstr1")
+        new_value = self.get_prog_out(my_prog, test_dir, "cat_value", d[0],
+                                      "mstr1")
+        self.assertEqual(multi_expected, new_value)
+
+        new_value = self.get_prog_out(my_prog, test_dir, "show_value", d[0],
+                                      "mstr1")
+        self.assertEqual(val, parse_show_out(new_value))
+
+    elif index % 3 == 1:
+        ef_debug_out("Adding value estr1(EXPAND_SZ)='%s' to %s" % (val, d[0]))
+        self.assertGoodProg(my_prog, test_dir, "add_value", d[0], "estr1",
+                            "EXPAND_SZ", val)
+        self.assertGoodProg(my_prog, test_dir, "has_value", d[0], "estr1")
+        new_value = self.get_prog_out(my_prog, test_dir, "cat_value", d[0],
+                                      "estr1")
+        self.assertEqual("%s\0" % val, new_value)
+
+        new_value = self.get_prog_out(my_prog, test_dir, "show_value", d[0],
+                                      "estr1")
+        self.assertEqual(val, parse_show_out(new_value))
+
+    elif index % 3 == 2:
+        ef_debug_out("Adding value str1(SZ)='%s' to %s" % (val, d[0]))
+        self.assertGoodProg(my_prog, test_dir, "add_value", d[0], "str1",
+                            "SZ", val)
+        self.assertGoodProg(my_prog, test_dir, "has_value", d[0], "str1")
+        new_value = self.get_prog_out(my_prog, test_dir, "cat_value", d[0],
+                                      "str1")
+        self.assertEqual("%s\0" % val, new_value)
+
+        new_value = self.get_prog_out(my_prog, test_dir, "show_value", d[0],
+                                      "str1")
+        self.assertEqual(val, parse_show_out(new_value))
+
+    index += 1
+    return
+
+class AddValueTest(EfTest):
+    pass
+
+add_key_example_tests(my_test, AddValueTest)
+
+if __name__ == '__main__':
+    unittest.main()

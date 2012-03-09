@@ -1,0 +1,4 @@
+Need better error catching when given a bogus registry directory.
+
+Maybe also catch when given the config directory of
+WINDOWS/system32/config instead of the WINDOWS directory as expected.

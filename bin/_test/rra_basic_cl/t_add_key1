@@ -1,0 +1,11 @@
+#! /bin/sh
+
+set -e
+
+TDIR=$1
+
+. $SCRIPT_LIB_DIR/assert.sh
+
+assert_true "$CL_PROG" "$TDIR" "add_value" "HKEY_LOCAL_MACHINE\\system\controlset001\enum\pci\ven_10ec&dev_8139&subsys_006a103c&rev_10\4&3a321f38&0&00f0" "hardwareid3" "REG_MULTI_SZ" "test"
+
+exit 0

@@ -1,0 +1,152 @@
+# -*- Mode:rpm-spec -*-
+# rregadmin.spec.in
+%define rel @RPM_RELEASE@
+
+%define version @PACKAGE_VERSION@
+%define pkgname @PACKAGE_TARNAME@
+%define prefix /usr/local
+%define _prefix %{prefix}
+
+%define configure_args  @RPM_CONFIGURE_ARGS@
+
+Name: %{pkgname}
+Version: %{version}
+Release: %{rel}
+Summary: Win32 Registry manipulation libraries and programs
+
+License: GPL
+Group: Development
+Source: %{pkgname}-%{version}.tar.gz
+Buildroot: %{_topdir}/buildroots/%{pkgname}
+URL: http://rregadmin.lewismoss.org
+Prefix: %{prefix}
+BuildArchitectures: # Target platforms, i.e., i586
+Packager: James LewisMoss <jim@lewismoss.org>
+
+%description
+Win32 Registry query, editing tools
+
+%package tools
+Summary: Win32 Registry query and editing tools.
+Group: lib
+
+%description tools
+Win32 Registry query and editing tools.
+
+
+%package lib
+Summary: Win32 Registry query and editing libraries.
+Group: lib
+
+%description lib
+Win32 Registry query and editing libraries.
+
+
+@HAVE_FUSE_TRUE@%package fuse
+@HAVE_FUSE_TRUE@Summary: Win32 Registry fuse module.
+@HAVE_FUSE_TRUE@Group: admin
+
+@HAVE_FUSE_TRUE@%description fuse
+@HAVE_FUSE_TRUE@Win32 Registry fuse module.
+
+
+%package devel
+Summary: Win32 Registry query and editing development package.
+Group: devel
+
+%description devel
+Win32 Registry query and editing development package.
+
+%prep
+%setup
+
+%build
+%configure %{configure_args}
+
+make -j4
+
+%install
+# To make things work with BUILDROOT
+if [ "$RPM_BUILD_ROOT" != "%{_topdir}/buildroots/%{pkgname}" ]
+then
+echo
+echo @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+echo @                                                                    @
+echo @  RPM_BUILD_ROOT is not what I expected.  Please clean it yourself. @
+echo @                                                                    @
+echo @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+echo
+else
+echo Cleaning RPM_BUILD_ROOT: "$RPM_BUILD_ROOT"
+rm -rf "$RPM_BUILD_ROOT"
+fi
+make -j4 DESTDIR="$RPM_BUILD_ROOT" install
+
+rm -rf $RPM_BUILD_ROOT%{prefix}/doc
+rm -rf $RPM_BUILD_ROOT%{prefix}/share/doc
+
+%clean
+# Call me paranoid, but I do not want to be responsible for nuking
+# someone's harddrive!
+if [ "$RPM_BUILD_ROOT" != "%{_topdir}/buildroots/%{pkgname}" ]
+then
+echo
+echo @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+echo @                                                                    @
+echo @  RPM_BUILD_ROOT is not what I expected.  Please clean it yourself. @
+echo @                                                                    @
+echo @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+echo
+else
+echo Cleaning RPM_BUILD_ROOT: "$RPM_BUILD_ROOT"
+rm -rf "$RPM_BUILD_ROOT"
+fi
+
+%files tools
+%defattr(-, root, root)
+%doc COPYING ChangeLog README AUTHORS NEWS
+
+%{prefix}/bin/rra_basic_cl
+%{prefix}/bin/rra_registry_diff
+%{prefix}/bin/rra_registry_equal
+
+%files lib
+%defattr(-, root, root)
+%doc COPYING ChangeLog README AUTHORS NEWS
+
+%{prefix}/lib/librregadmin.so.*
+%{prefix}/lib/librregadmin.la
+%{prefix}/share/locale/*/*/rregadmin.*
+
+@HAVE_FUSE_TRUE@%files fuse
+@HAVE_FUSE_TRUE@%defattr(-, root, root)
+@HAVE_FUSE_TRUE@%doc COPYING ChangeLog README AUTHORS NEWS
+
+@HAVE_FUSE_TRUE@%{prefix}/bin/rrafs
+@HAVE_FUSE_TRUE@%{prefix}/lib/librregadmin_fuse.so.*
+@HAVE_FUSE_TRUE@%{prefix}/lib/librregadmin_fuse.la
+
+%files devel
+%defattr(-, root, root)
+%doc COPYING ChangeLog README AUTHORS NEWS
+%doc rregadmin/doxygen-docs/html
+
+%{prefix}/include/rregadmin
+%{prefix}/lib/librregadmin.so
+%{prefix}/lib/librregadmin.a
+
+%post lib
+/sbin/ldconfig
+
+%postun lib
+/sbin/ldconfig
+
+%changelog
+* Thu Nov 9 2006 James LewisMoss <dres@lewismoss.org> -
+- Rename from hivetools to rregadmin.
+
+* Fri Sep 22 2006 James LewisMoss <dres@lewismoss.org> -
+- Split into tools, lib and devel packages
+
+* Thu Sep 21 2006 James LewisMoss <dres@lewismoss.org> -
+- Initial build.

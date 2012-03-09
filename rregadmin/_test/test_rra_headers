@@ -1,0 +1,19 @@
+#! /bin/sh
+
+test -e
+#test -x
+
+(
+    find $top_builddir/rregadmin -name '*.h' \
+        | grep -v config.h
+    find $top_srcdir/rregadmin -name '*.h' \
+        | grep -v config.h
+
+) > headers.list
+
+$srcdir/test_headers C headers.list
+EXIT_VALUE=$?
+
+rm -f headers.list
+
+exit $EXIT_VALUE

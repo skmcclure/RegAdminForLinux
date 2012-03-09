@@ -1,0 +1,48 @@
+#! /bin/sh
+
+set -e
+# set -x
+
+TARGET_FILE="$1"
+CONF_FILE="$2"
+XML_FILE="`basename $TARGET_FILE .py`.xml"
+
+INCLUDED_FILES=""
+
+for i in \
+    $abs_top_srcdir/python/common-env.sh \
+    $abs_top_builddir/python/common-env.sh \
+    $abs_top_srcdir/$subdir/common-env.sh \
+    $abs_top_builddir/$subdir/common-env.sh \
+    $abs_top_srcdir/$subdir/$CONF_FILE \
+    $abs_top_builddir/$subdir/$CONF_FILE
+do
+  if test -e $i ; then
+      inc_file=`$REALPATH $i`
+      if test -z "`echo \"$INCLUDED_FILES\" | grep \" $inc_file \"`" ; then
+          . $inc_file
+          INCLUDED_FILES=" $INCLUDED_FILES $inc_file "
+      fi
+  fi
+done
+
+H2XML_CMD='$H2XML $h2xml_args -o $XML_FILE $h2xml_sources'
+echo "Running `eval echo $H2XML_CMD`"
+if eval "$H2XML_CMD"
+then
+    echo "Created $XML_FILE"
+    #ls -l $XML_FILE
+else
+    echo "$H2XML failed"
+    exit 1
+fi
+
+XML2PY_CMD='$XML2PY $xml2py_args $xml2py_libs $xml2py_extra_modules $xml2py_include_patterns -o $TARGET_FILE $XML_FILE'
+echo "Running `eval echo $XML2PY_CMD`"
+if eval "$XML2PY_CMD"
+then
+    rm -f $XML_FILE
+else
+    rm -f $TARGET_FILE
+    exit 1
+fi

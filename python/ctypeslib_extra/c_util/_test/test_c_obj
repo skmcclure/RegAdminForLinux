@@ -1,0 +1,276 @@
+#! /usr/bin/env python
+
+import unittest
+
+try:
+    import rra_test_utils
+except:
+    import sys
+    sys.path = sys.path + [ "../../..", "../../../TEST/lib" ]
+    import rra_test_utils
+
+from ctypeslib_extra.c_util import c_obj
+
+
+class TestCObj(rra_test_utils.RraTestCase):
+
+    def test_create1(self):
+
+        o1 = c_obj.CObj()
+
+        return
+
+    def test_fail_mod_cobj1(self):
+
+        self.assertRaises(
+            c_obj.CObjException,
+            lambda : c_obj.CObj.initialize_from_module(
+            module_name="t1",
+            object_name="T1", include_patterns=["t1_(.*)"]))
+
+        return
+
+    def test_init_fail_no_ob(self):
+
+        class TestT1(c_obj.CObj):
+            pass
+
+        self.assertRaises(
+            c_obj.CObjException,
+            lambda : TestT1.initialize_from_module(
+            module_name="t1_fail_no_ob",
+            object_name="T1", include_patterns=["t1_(.*)"]))
+
+        return
+
+    def test_init_fail_none_ob(self):
+
+        class TestT1(c_obj.CObj):
+            pass
+
+        self.assertRaises(
+            c_obj.CObjException,
+            lambda : TestT1.initialize_from_module(
+            module_name="t1_fail_none_ob",
+            object_name="T1", include_patterns=["t1_(.*)"]))
+
+        return
+
+    def test_init_fail_non_struct(self):
+
+        class TestT1(c_obj.CObj):
+            pass
+
+        self.assertRaises(
+            c_obj.CObjException,
+            lambda : TestT1.initialize_from_module(
+            module_name="t1_fail_non_struct",
+            object_name="T1", include_patterns=["t1_(.*)"]))
+
+        return
+
+    def test_no_funcs(self):
+
+        class TestT1(c_obj.CObj):
+            pass
+
+        self.assertRaises(
+            c_obj.CObjException,
+            lambda : TestT1.initialize_from_module(
+            module_name="t1_no_funcs",
+            object_name="T1", include_patterns=["t1_(.*)"]))
+
+        return
+
+    def test_no_module(self):
+
+        class TestT1(c_obj.CObj):
+            pass
+
+        self.assertRaises(
+            c_obj.CObjException,
+            lambda : TestT1.initialize_from_module(
+            module_name="no_exists",
+            object_name="T1", include_patterns=["t1_(.*)"]))
+
+        return
+
+    def test_too_many_constructors_fail(self):
+
+        class TestT1(c_obj.CObj):
+            pass
+
+        self.assertRaises(
+            c_obj.CObjException,
+            lambda : TestT1.initialize_from_module(
+            module_name="t1_too_many_constructors",
+            object_name="T1", include_patterns=["t1_(.*)"]))
+
+        return
+
+    def test_too_many_destructors_fail(self):
+
+        class TestT1(c_obj.CObj):
+            pass
+
+        self.assertRaises(
+            c_obj.CObjException,
+            lambda : TestT1.initialize_from_module(
+            module_name="t1_too_many_destructors",
+            object_name="T1", include_patterns=["t1_(.*)"]))
+
+        return
+
+    def test_too_many_constructors_success(self):
+
+        class TestT1(c_obj.CObj):
+
+            def _ccu_init(self, *args):
+                self._ccu_ob = self._ccu_constructor_new_full(1)
+                return
+
+        TestT1.initialize_from_module(
+            module_name="t1_too_many_constructors",
+            object_name="T1", include_patterns=["t1_(.*)"])
+
+        self.assertTrue(hasattr(TestT1, "_ccu_init"))
+        self.assertTrue(hasattr(TestT1, "__del__"))
+        self.assertTrue(hasattr(TestT1, "func1"))
+        self.assertTrue(hasattr(TestT1, "func2"))
+        self.assertTrue(hasattr(TestT1, "_ccu_constructor_new"))
+        self.assertTrue(hasattr(TestT1, "_ccu_constructor_new_full"))
+        self.assertTrue(hasattr(TestT1, "_ccu_destructor_free"))
+        self.assertFalse(hasattr(TestT1, "func3"))
+
+        return
+
+    def test_too_many_destructors_success(self):
+
+        class TestT1(c_obj.CObj):
+
+            def __del__(self, *args):
+                self._ccu_destructor_free_full(10)
+                return
+
+        TestT1.initialize_from_module(
+            module_name="t1_too_many_destructors",
+            object_name="T1", include_patterns=["t1_(.*)"])
+
+        self.assertTrue(hasattr(TestT1, "_ccu_init"))
+        self.assertTrue(hasattr(TestT1, "__del__"))
+        self.assertTrue(hasattr(TestT1, "func1"))
+        self.assertTrue(hasattr(TestT1, "func2"))
+        self.assertTrue(hasattr(TestT1, "_ccu_constructor_new"))
+        self.assertTrue(hasattr(TestT1, "_ccu_destructor_free"))
+        self.assertTrue(hasattr(TestT1, "_ccu_destructor_free_full"))
+        self.assertFalse(hasattr(TestT1, "func3"))
+
+        return
+
+    def test_too_many_constructors_success_call(self):
+
+        class TestT1(c_obj.CObj):
+
+            def _ccu_init(self, *args):
+                self._ccu_ob = self._ccu_constructor_new_full(1)
+                return
+
+        TestT1.initialize_from_module(
+            module_name="t1_too_many_constructors",
+            object_name="T1", include_patterns=["t1_(.*)"])
+
+        t1 = TestT1()
+
+        self.assertEqual(5, t1.func1(10))
+        test_str = "da test str"
+        self.assertEqual(test_str[::-1], t1.func2(test_str))
+
+        t1 = None
+
+        return
+
+    def test_too_many_destructors_success_call(self):
+
+        class TestT1(c_obj.CObj):
+
+            def __del__(self, *args):
+                self._ccu_destructor_free_full(10)
+                return
+
+        TestT1.initialize_from_module(
+            module_name="t1_too_many_destructors",
+            object_name="T1", include_patterns=["t1_(.*)"])
+
+        t1 = TestT1()
+
+        self.assertEqual(5, t1.func1(10))
+        test_str = "da test str"
+        self.assertEqual(test_str[::-1], t1.func2(test_str))
+
+        t1 = None
+
+        return
+
+    def test_t1(self):
+
+        class TestT1(c_obj.CObj):
+            pass
+
+        # self.assertFalse(hasattr(TestT1, "__init__"))
+        self.assertFalse(hasattr(TestT1, "_ccu_init"))
+        self.assertFalse(hasattr(TestT1, "__del__"))
+        self.assertFalse(hasattr(TestT1, "func1"))
+        self.assertFalse(hasattr(TestT1, "func2"))
+        self.assertFalse(hasattr(TestT1, "func3"))
+        self.assertFalse(hasattr(TestT1, "_ccu_constructor_new"))
+        self.assertFalse(hasattr(TestT1, "_ccu_destructor_free"))
+
+        TestT1.initialize_from_module(
+            module_name="t1", object_name="T1",
+            include_patterns=["t1_(.*)"])
+
+        self.assertTrue(hasattr(TestT1, "_ccu_init"))
+        self.assertTrue(hasattr(TestT1, "__del__"))
+        self.assertTrue(hasattr(TestT1, "func1"))
+        self.assertTrue(hasattr(TestT1, "func2"))
+        self.assertTrue(hasattr(TestT1, "_ccu_constructor_new"))
+        self.assertTrue(hasattr(TestT1, "_ccu_destructor_free"))
+        self.assertFalse(hasattr(TestT1, "func3"))
+
+        return
+
+    def test_t1_create_delete(self):
+
+        class TestT1(c_obj.CObj):
+            pass
+
+        TestT1.initialize_from_module(
+            module_name="t1", object_name="T1",
+            include_patterns=["t1_(.*)"])
+
+        t1 = TestT1()
+        t1 = None
+
+        return
+
+    def test_t1_call1(self):
+
+        class TestT1(c_obj.CObj):
+            pass
+
+        TestT1.initialize_from_module(
+            module_name="t1", object_name="T1",
+            include_patterns=["t1_(.*)"])
+
+        t1 = TestT1()
+
+        self.assertEqual(5, t1.func1(10))
+        test_str = "da test str"
+        self.assertEqual(test_str[::-1], t1.func2(test_str))
+
+        t1 = None
+
+        return
+
+if __name__ == '__main__':
+    rra_test_utils.main()

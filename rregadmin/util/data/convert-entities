@@ -1,0 +1,141 @@
+#! /usr/bin/env python
+
+import sys
+import unicodedata
+import re
+
+try:
+    from xml.parsers.xmlproc import dtdparser, xmldtd
+except e:
+    sys.stderr.write("Unable to import dtd parser.  Exiting...\n")
+    sys.exit(1)
+
+name_map = {}
+num_map = {}
+
+print """/* This file automatically generated.  Don't modify. */
+
+"""
+
+def make_struct_name(ent_name):
+    return ent_name.replace(".", "_") + "_uchar_info"
+
+ent_re = re.compile(r'&#(\d+);')
+
+def convert_entity_value(val):
+    if len(val) == 1:
+        return ord(val[0])
+    else:
+        mtch = ent_re.match(val)
+        num = int(mtch.group(1))
+        return num
+
+class EntData(object):
+
+    def __init__(self, fl, name, ent):
+        self.name = name
+        self.filename = fl
+        self.ent = ent
+        self.num = convert_entity_value(ent.get_value())
+        self.struct_name = make_struct_name(ent_name)
+        try:
+            self.descrip = unicodedata.name(unichr(self.num))
+        except:
+            sys.stderr.write(
+                "%s:%d: warning: No unicode descrip for %s : %d\n" % (
+                self.filename, 0,
+                self.name, self.num))
+            self.descrip = 'no unicode name known for %d' % self.num
+
+    def __str__(self):
+        return "[%s, %d, %s, %s, %s]" % (
+            self.name, self.num, self.filename,
+            self.struct_name, self.descrip)
+
+    def __cmp__(self, other):
+        ret_val = cmp(self.name, other.name)
+        if ret_val != 0:
+            return ret_val
+        ret_val = cmp(self.num, other.num)
+        if ret_val != 0:
+            return ret_val
+        return 0
+
+for fl in sys.argv[1:]:
+    if fl == "convert-entities":
+        continue
+    dp = dtdparser.DTDParser()
+    dtd = xmldtd.CompleteDTD(dp)
+    dp.set_dtd_consumer(dtd)
+    print "/* Grabbing data from %s */" % fl
+    dp.parse_resource(fl)
+
+    for ent_name, ent in dtd.gen_ents.items():
+        new_data = EntData(fl, ent_name, ent)
+        if (name_map.has_key(ent_name)
+            and name_map[ent_name] != new_data):
+            sys.stderr.write(
+                ("%s:%d: warning: " +
+                 "Replacing in name_map[%s]\n       %s\n  with %s\n") % (
+                fl, 0,
+                ent_name, name_map[ent_name], new_data))
+        name_map[ent_name] = new_data
+        if (num_map.has_key(new_data.num)
+            and num_map[new_data.num] != new_data):
+            sys.stderr.write(
+                ("%s:%d: info: " +
+                 "Replacing in num_map[%d]\n       %s\n  with %s\n") % (
+                fl, 0,
+                new_data.num, num_map[new_data.num], new_data))
+        num_map[new_data.num] = new_data
+
+print """
+"""
+
+for d in name_map.keys():
+    print "static struct unicode_char_info %s = {" % name_map[d].struct_name
+    print "    \"%s\"," % name_map[d].name
+    print "    \"%s\"," % name_map[d].descrip
+    print "    \"%s\"," % name_map[d].filename
+    print "    %d" % name_map[d].num
+    print "};"
+
+print """
+"""
+
+name_keys = name_map.keys()
+name_keys.sort()
+print "static struct unicode_char_info *name_sorted_char_info[%d];" % (
+    len(name_keys))
+print "static gboolean need_name_init = TRUE;"
+print "static void"
+print "initialize_name_info(void)"
+print "{"
+print "    if (!need_name_init)"
+print "        return;"
+for i in xrange(0, len(name_keys)):
+    print "    name_sorted_char_info[%d] = &%s;" % (
+        i, name_map[name_keys[i]].struct_name)
+print "    need_name_init = FALSE;"
+print "}"
+print "int name_sorted_len = %d;" % len(name_keys)
+
+print """
+"""
+
+num_keys = num_map.keys()
+num_keys.sort()
+print "static struct unicode_char_info *num_sorted_char_info[%d];" % (
+    len(num_keys))
+print "static gboolean need_num_init = TRUE;"
+print "static void"
+print "initialize_num_info(void)"
+print "{"
+print "    if (!need_num_init)"
+print "        return;"
+for i in xrange(0, len(num_keys)):
+    print "    num_sorted_char_info[%d] = &%s;" % (
+        i, num_map[num_keys[i]].struct_name)
+print "    need_num_init = FALSE;"
+print "}"
+print "int num_sorted_len = %d;" % len(num_keys)

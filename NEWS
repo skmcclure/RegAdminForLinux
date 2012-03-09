@@ -1,0 +1,56 @@
+RRegAdmin 0.10.16
+=================
+
+ * fix some bugs.
+   * Error when multiple paths can match with find_file_casei.
+   * Conditionally disable use of g_utf8_collate_key for older glib.
+
+RRegAdmin 0.10.14
+=================
+
+ * Fix recursive unnalloc bug.
+ * Fix decrement use count secdesc bug.
+ * Fix bug where key list cell isn't removed when empty.
+
+RRegAdmin 0.10.13
+=================
+
+ * Fix rpm problem
+
+RRegAdmin 0.10.12
+=================
+
+ * Fix registry key compare problem.
+ * Determine that I can't guess when an aclist is supposed to be rev4.
+ * Add disable python interface config arg.
+ * Fix some m4 macros.
+
+RRegAdmin 0.10.11
+=================
+
+ * Fix some bugs in security descriptor handling.
+ * More file case fixing.
+ * Test framework improvements.
+ * Speed improvments from profiling.  Thanks valgrind.
+ * Released early as a hot fix for Luis.
+
+RRegAdmin 0.10.10
+=================
+
+Other stuff
+
+RRegAdmin 0.10
+==============
+
+64 bit clean (I think)
+
+RRegAdmin 0.9
+=============
+
+Major API changes to fix some bad naming and organization:
+1) rra_basic -> rra_cli
+2) Split basicapi dir into registry and cli.
+3) Add fuse module.
+
+RRegAdmin 0.7.0
+===============

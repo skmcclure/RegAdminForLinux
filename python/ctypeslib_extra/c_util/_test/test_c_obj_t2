@@ -1,0 +1,84 @@
+#! /usr/bin/env python
+
+import unittest
+
+try:
+    import rra_test_utils
+except:
+    import sys
+    sys.path = sys.path + [ "../../..", "../../../TEST/lib" ]
+    import rra_test_utils
+
+from ctypeslib_extra.c_util import c_obj
+
+
+
+class TestT2(object):
+    pass
+
+class TestCObj(rra_test_utils.RraTestCase):
+
+    def test_t2(self):
+
+        class TestT2(c_obj.CObj):
+            pass
+
+        # self.assertFalse(hasattr(TestT2, "__init__"))
+        self.assertFalse(hasattr(TestT2, "_ccu_init"))
+        self.assertFalse(hasattr(TestT2, "__del__"))
+        self.assertFalse(hasattr(TestT2, "set"))
+        self.assertFalse(hasattr(TestT2, "get"))
+        self.assertFalse(hasattr(TestT2, "bogus"))
+        self.assertFalse(hasattr(TestT2, "print"))
+        self.assertFalse(hasattr(TestT2, "print_t2"))
+
+        TestT2.initialize_from_module(
+            module_name="t2_wrapper", object_name="t2",
+            include_patterns=["t2_(.*)"])
+
+        self.assertTrue(hasattr(TestT2, "_ccu_init"))
+        self.assertTrue(hasattr(TestT2, "__del__"))
+        self.assertTrue(hasattr(TestT2, "set"))
+        self.assertTrue(hasattr(TestT2, "get"))
+        self.assertFalse(hasattr(TestT2, "print"))
+        self.assertFalse(hasattr(TestT2, "print_t2"))
+
+        return
+
+    def test_t2_create_delete(self):
+
+        class TestT2(c_obj.CObj):
+            pass
+
+        TestT2.initialize_from_module(
+            module_name="t2_wrapper", object_name="t2",
+            include_patterns=["t2_(.*)"])
+
+
+        t2 = TestT2(10)
+        t2 = None
+
+        return
+
+    def test_t2_call1(self):
+
+        class TestT2(c_obj.CObj):
+            pass
+
+        TestT2.initialize_from_module(
+            module_name="t2_wrapper", object_name="t2",
+            include_patterns=["t2_(.*)"])
+
+
+        t2 = TestT2(10)
+
+        self.assertEqual(10, t2.get())
+        t2.set(15)
+        self.assertEqual(15, t2.get())
+
+        t2 = None
+
+        return
+
+if __name__ == '__main__':
+    rra_test_utils.main()

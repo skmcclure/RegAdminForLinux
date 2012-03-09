@@ -1,0 +1,33 @@
+#! /bin/sh
+
+set -e
+
+SCR=$1
+
+if test -z "$SCR" ; then
+  echo "Need script"
+  exit 1
+fi
+
+EXIT_VAL=0
+
+for example_dir in `$ABS_TOP_BUILD_DIR/test/bin/ls_example_registries` ; do
+
+    if test -d "$example_dir" ; then
+        $SCRIPT_LIB_DIR/copy_example_hives $example_dir test-data
+        export example_dir
+        set +e
+
+        if $SCR test-data ; then
+            echo "PASS $SCR $example_dir"
+        else
+            echo "FAIL $SCR $example_dir"
+            EXIT_VAL=1
+        fi
+
+        rm -rf test-data
+    fi
+
+done
+
+exit $EXIT_VAL

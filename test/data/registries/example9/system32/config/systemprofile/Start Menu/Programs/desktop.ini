@@ -1,0 +1,4 @@
+[.ShellClassInfo]
+LocalizedResourceName=@shell32.dll,-21782
+[LocalizedFileNames]
+Remote Assistance.lnk=@%systemroot%\system32\rcbdyctl.dll,-152

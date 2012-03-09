@@ -1,0 +1,90 @@
+/*
+ * Functions to process primative registry data and .reg file contents.
+ *
+ * Authors:	Sean Loaring
+ *		Petter Nordahl-Hagen
+ *              James LewisMoss <jlm@racemi.com>
+ *
+ * Copyright (c) 2006 Racemi Inc
+ * Copyright (c) 2005-2006 Sean Loaring
+ * Copyright (c) 1997-2004 Petter Nordahl-Hagen
+ *
+ * This program is free software; you can redistribute it and/or modify * it under the terms of the GNU General Public License as published by * the Free Software Foundation; either version 2 of the License, or * (at your option) any later version. *  * This program is distributed in the hope that it will be useful, * but WITHOUT ANY WARRANTY; without even the implied warranty of * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program; if not, write to the Free Software
+ * Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
+ *
+ */
+
+#ifndef RREGADMIN_REG_REGTYPES_H
+#define RREGADMIN_REG_REGTYPES_H 1
+#include <stdio.h>
+
+#include <rregadmin/util/tools.h>
+#include <rregadmin/util/macros.h>
+
+G_BEGIN_DECLS
+
+/* TODO: This should be elsewhere and shouldn't be so ugly
+ *
+ * I thought that writing a recursive-descent-type grammar for .reg files would
+ * be relatively easy.  It seems to look like roadkill.  Bad roadkill.
+ *
+ * [regfile] := [header][record]...[record]
+ * [header] := [header_str][ncomment]
+ * [record] := [keyrec] | [valrec]
+ * [keyrec] := '['[str]']'[ncomment]
+ * [valrec] := [valname]'='[valdata]
+ * [valname] := '@' | [escstr]
+ * [valdata] := [valstr] | [valdword] | [valhex]
+ * [valstr] := [escstr][ncomment]
+ * [valdword] := "dword:\d{8}"[ncomment]
+ * [valhex] := [hexmess][ncomment]
+ * [hexmess] := 'xx,xx,xx'...sortof
+ */
+
+struct regfile
+{
+    struct uglyread *ur;
+    int ln;     //line number
+    int got_header;     //has the header been read yet?
+    ustring *cl;  //the current line
+};
+
+#define RTK_EMPTY 1
+#define RTK_KEYNAME 2
+#define RTK_VAL 3
+#define RTK_COMMENT 4
+#define RTK_EOF 5
+
+
+struct regfile *regfile_open (char *path);
+void regfile_close (struct regfile *rf);
+
+int reg_val_line (ustring *val, ustring *name, int *type,
+                  char *str);
+
+int regfile_next (ustring *name, ustring *val,
+                  unsigned int *type, struct regfile *rf);
+
+int regp_tok (ustring *name, ustring *val,
+              unsigned int *type, ustring *line);
+int regp_key_line (ustring *name, ustring *str);
+int regp_val_line (ustring *val, ustring *name,
+                   unsigned int *type, ustring *line);
+int regp_val_data (ustring *vb, unsigned int *type, ustring *line);
+int regp_quoted_string (ustring *out, ustring *line);
+int regp_header (ustring *line);
+int regp_ncomment (ustring *s);
+int regp_data (ustring *vb, int format, ustring *line);
+int regp_winhex (ustring *out, ustring *line);
+int regp_dword (ustring *out, ustring *line);
+int regp_val_type (unsigned int *type, int *format, ustring *line);
+
+G_END_DECLS
+
+#endif // RREGADMIN_REG_REGTYPES_H
+
+
+// vim600: set foldlevel=0 foldmethod=marker:

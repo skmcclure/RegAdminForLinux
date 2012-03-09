@@ -1,0 +1,3 @@
+@abs_top_srcdir@/test/data/hives/example1/system.hiv.win2003.before
+@abs_top_srcdir@/test/data/hives/example1/system.hiv.win2003.after
+@abs_top_srcdir@/test/data/hives/example2/system.win2000.hiv.example

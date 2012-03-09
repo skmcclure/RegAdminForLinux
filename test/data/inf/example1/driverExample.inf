@@ -1,0 +1,55 @@
+[Version]
+Signature=$CHICAGO$
+
+[DefaultInstall]
+BitReg=Bits.Set
+AddReg=Add.Settings
+DelReg=Del.Settings
+
+[Add.Settings]
+;
+; CriticalDeviceDatabase entries
+;
+;HKLM,SYSTEM\\ControlSet001\\Control\\CriticalDeviceDatabase\\pci#ven_105a&dev_4d33,,,
+;HKLM,SYSTEM\\ControlSet001\\Control\\CriticalDeviceDatabase\\pci#ven_105a&dev_4d38&subsys_4d39105a,,,
+;HKLM,SYSTEM\\ControlSet001\\Control\\CriticalDeviceDatabase\\pci#ven_105a&dev_6269,,,
+;HKLM,SYSTEM\\ControlSet001\\Control\\CriticalDeviceDatabase\\scsi#processorpromise_raid_console__,,,
+;HKLM,SYSTEM\\ControlSet001\\Control\\CriticalDeviceDatabase\\pci#ven_105a&dev_6268,,,
+;HKLM,SYSTEM\\ControlSet001\\Control\\CriticalDeviceDatabase\\pci#ven_105a&dev_4d30&subsys_4d32105a,,,
+
+HKLM,SYSTEM\\ControlSet001\\Control\\CriticalDeviceDatabase\\pci#ven_105a&dev_4d33,ClassGUID,,"{4D36E97B-E325-11CE-BFC1-08002BE10318}"
+HKLM,SYSTEM\\ControlSet001\\Control\\CriticalDeviceDatabase\\pci#ven_105a&dev_4d33,Service,,"fasttrak"
+HKLM,SYSTEM\\ControlSet001\\Control\\CriticalDeviceDatabase\\pci#ven_105a&dev_4d38&subsys_4d39105a,ClassGUID,,"{4D36E97B-E325-11CE-BFC1-08002BE10318}"
+HKLM,SYSTEM\\ControlSet001\\Control\\CriticalDeviceDatabase\\pci#ven_105a&dev_4d38&subsys_4d39105a,Service,,"fasttrak"
+HKLM,SYSTEM\\ControlSet001\\Control\\CriticalDeviceDatabase\\pci#ven_105a&dev_6269,ClassGUID,,"{4D36E97B-E325-11CE-BFC1-08002BE10318}"
+HKLM,SYSTEM\\ControlSet001\\Control\\CriticalDeviceDatabase\\pci#ven_105a&dev_6269,Service,,"fasttrak"
+HKLM,SYSTEM\\ControlSet001\\Control\\CriticalDeviceDatabase\\scsi#processorpromise_raid_console__,ClassGUID,,"{4D36E97B-E325-11CE-BFC1-08002BE10318}"
+HKLM,SYSTEM\\ControlSet001\\Control\\CriticalDeviceDatabase\\scsi#processorpromise_raid_console__,Service,,
+HKLM,SYSTEM\\ControlSet001\\Control\\CriticalDeviceDatabase\\pci#ven_105a&dev_6268,ClassGUID,,"{4D36E97B-E325-11CE-BFC1-08002BE10318}"
+HKLM,SYSTEM\\ControlSet001\\Control\\CriticalDeviceDatabase\\pci#ven_105a&dev_6268,Service,,"fasttrak"
+HKLM,SYSTEM\\ControlSet001\\Control\\CriticalDeviceDatabase\\pci#ven_105a&dev_4d30&subsys_4d32105a,ClassGUID,,"{4D36E97B-E325-11CE-BFC1-08002BE10318}"
+HKLM,SYSTEM\\ControlSet001\\Control\\CriticalDeviceDatabase\\pci#ven_105a&dev_4d30&subsys_4d32105a,Service,,"fasttrak"
+
+
+;
+; Services entries
+;
+HKLM,SYSTEM\\ControlSet001\\Services\\fasttrak,Type,0x00010001,0x00000001
+HKLM,SYSTEM\\ControlSet001\\Services\\fasttrak,Start,0x00010001,0x00000000
+HKLM,SYSTEM\\ControlSet001\\Services\\fasttrak,ImagePath,0x00020000,"system32\DRIVERS\fasttrak.sys"
+HKLM,SYSTEM\\ControlSet001\\Services\\fasttrak,ErrorControl,0x00010001,0x00000001
+HKLM,SYSTEM\\ControlSet001\\Services\\fasttrak,Group,,"SCSI Miniport"
+HKLM,SYSTEM\\ControlSet001\\Services\\fasttrak,Tag,0x00020000,0x00000045
+HKLM, SYSTEM\\ControlSet001\\Services\\fasttrak\\Parameters\\PnpInterface, "5", 0x00010001, 0x00000001
+HKLM, SYSTEM\\ControlSet001\\Services\\fasttrak\\Security, "Security",
+0x00000001, ;SOME LONG BINARY STRING?!?!?
+
+;
+; Event Log entries
+;
+HKLM,SYSTEM\\ControlSet001\\Services\\EventLog\\System\\fasttrak,EventMessageFile,0x00000002,"C:\WINDOWS\system32\IoLogMsg.dll"
+HKLM,SYSTEM\\ControlSet001\\Services\\EventLog\\System\\fasttrak,TypesSupported,0x001001,0x00000007
+
+[Del.Settings]
+
+[Bits.Set]

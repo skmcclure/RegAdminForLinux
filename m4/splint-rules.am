@@ -1,0 +1,11 @@
+SPLINT_SRCS = \
+	$(SOURCES)
+
+SPLINT_ARGS = \
+	+posixlib -preproc
+
+check-local: $(SPLINT_SRCS)
+	for i in $(SPLINT_SRCS) ; do \
+	  $(SPLINT) $(SPLINT_ARGS) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) \
+	      $(AM_CPPFLAGS) $(CPPFLAGS) $$i ; \
+	done

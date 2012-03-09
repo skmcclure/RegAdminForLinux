@@ -1,0 +1,23 @@
+
+ifeq ($(origin EXTRA_DIST), undefined)
+EXTRA_DIST =
+endif
+EXTRA_DIST += $(PACKAGE_TARNAME).spec
+
+ifeq ($(origin CONFIG_CLEAN_FILES), undefined)
+CONFIG_CLEAN_FILES =
+endif
+CONFIG_CLEAN_FILES += aminclude.am
+
+ifeq ($(MAKE_RPMS_TRUE),)
+
+rpm: $(RPM_TARGET)
+
+#.PHONY: rpm
+
+$(RPM_TARGET): $(DISTFILES)
+	${MAKE} dist
+	-mkdir -p `dirname $(RPM_TARGET)`
+	$(RPMBUILD_PROG) --verbose $(RPM_ARGS) $(RPM_TARBALL)
+	@echo Congratulations, $(RPM_TARGET) '(and friends)' should now exist.
+endif

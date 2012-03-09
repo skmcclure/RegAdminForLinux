@@ -1,0 +1,181 @@
+/* {{{ preamble
+ *
+ * Registry Hive access library API
+ *
+ * Authors:     Sean Loaring
+ *              James LewisMoss <jlm@racemi.com>
+ *
+ * Copyright (c) 2006 Racemi Inc
+ * Copyright (c) 2005-2006 Sean Loaring
+ *
+ * This program is free software; you can redistribute it and/or modify * it under the terms of the GNU General Public License as published by * the Free Software Foundation; either version 2 of the License, or * (at your option) any later version. *  * This program is distributed in the hope that it will be useful, * but WITHOUT ANY WARRANTY; without even the implied warranty of * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program; if not, write to the Free Software
+ * Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
+ *
+ }}} */
+
+#ifndef RREGADMIN_WINAPI_RLREG_H
+#define RREGADMIN_WINAPI_RLREG_H 1
+
+#include <wchar.h>
+#include <stdarg.h>
+
+#include <rregadmin/winapi/wintypes.h>
+#include <rregadmin/hive/types.h>
+#include <rregadmin/hive/defines.h>
+#include <rregadmin/winapi/winerr.h>
+#include <rregadmin/util/macros.h>
+#include <rregadmin/registry/registry.h>
+
+G_BEGIN_DECLS
+
+// {{{ Typedefs & Structs
+
+struct value_entW
+{       //{{{
+    wchar_t *ve_valuename;
+    guint32 ve_valuelen;
+    guint32 *ve_valueptr;
+    guint32 ve_type;
+};
+
+typedef guint32 REGSAM;
+typedef void SECURITY_ATTRIBUTES;
+typedef gint32 FILETIME;  //long is just a guess, I'm ignoring time for now...
+
+typedef const RegistryKey* rl_hkey;
+typedef RegistryKey* rl_hkey_mod;
+
+extern rl_hkey HKEY_CLASSES_ROOT;
+extern rl_hkey HKEY_CURRENT_USER;
+extern rl_hkey HKEY_LOCAL_MACHINE;
+extern rl_hkey HKEY_USERS;
+extern rl_hkey HKEY_PERFORMANCE_DATA;
+extern rl_hkey HKEY_CURRENT_CONFIG;
+extern rl_hkey HKEY_DYN_DATA;
+
+
+// }}}
+
+void rlreg_init (void);   // You have to call this first
+
+gint32 rlRegOpenHiveFile (rl_hkey * result,
+                          const char *fname,
+                          const char *keypath,
+                          int mode);
+
+gint32 rlRegOpenKeyEx (rl_hkey hkey,
+                       const char *skname,
+                       guint32 options,
+                       REGSAM,
+                       rl_hkey * result);
+
+gint32 rlRegQueryValueEx (rl_hkey key,
+                          const char *vname,
+                          guint32 *type,
+                          char *buf,
+                          guint32 *blen);
+
+gint32 rlRegEnumKeyEx (rl_hkey,
+                       guint32 index,
+                       char *name,
+                       guint32 *len,
+                       char *cname, guint32 *cnlen, FILETIME * ft);
+
+gint32 rlRegEnumValue (rl_hkey key,
+                       guint32 index,
+                       char *vname,
+                       guint32 *vnlen,
+                       guint32 *type,
+                       char *buf,
+                       guint32 *blen);
+
+/* CURRENT */
+gint32 rlRegSetValueEx (rl_hkey key,
+                        const char *vname,
+                        guint32 reserved,
+                        guint32 type,
+                        const char *buf,
+                        guint32 blen);
+
+// {{{ REGSAM crap (which is all ignored for now)
+#define KEY_ALL_ACCESS 1
+
+// }}}
+
+gint32 rlRegCreateKeyEx (rl_hkey hkey,
+                         const char *skname,
+                         const char *r_class,
+                         guint32 options,
+                         REGSAM desired,
+                         SECURITY_ATTRIBUTES * security,
+                         rl_hkey * result, guint32 *disposition);
+
+// gint32 rlRegOpenUserClassesRoot(HANDLE,
+//                               guint32,
+//                               REGSAM,
+//                               rl_hkey *result);
+
+gint32 rlRegQueryInfoKey (rl_hkey key,
+                          char *clname,
+                          guint32 *cllen,
+                          guint32 *subkeys,
+                          guint32 *maxsklen,
+                          guint32 *maxcllen,
+                          guint32 *nvalues,
+                          guint32 *maxvalnamelen,
+                          guint32 *maxvallen,
+                          guint32 *securitydesc, FILETIME * lastwrite);
+
+gint32 rlRegQueryMultipleValues (rl_hkey,
+                                 struct value_entW * val_list,
+                                 guint32 nvals,
+                                 char *buf, guint32 *totsize);
+
+/* Declarations for functions that are the same in Win16 and Win32 */
+
+gint32 rlRegCloseKey (rl_hkey key);
+gint32 rlRegFlushKey (rl_hkey key);
+
+gint32 rlRegDeleteKey (rl_hkey key, const char *skname);
+gint32 rlRegDeleteValue (rl_hkey key, const char *vname);
+
+G_END_DECLS
+
+#endif // RREGADMIN_WINAPI_RLREG_H
+
+// vim600: set foldlevel=0 foldmethod=marker:
+
+
+//These depend on some sort of registry patch files (same as output
+//from regedit?) {{{
+
+//long rlRegReplaceKey(rl_hkey, const wchar_t *, const wchar_t *,
+//                     const wchar_t *);
+//long rlRegRestoreKey(rl_hkey, const wchar_t *, unsigned long);
+//long rlRegLoadKey(rl_hkey, const wchar_t *, const wchar_t *);
+//long rlRegSaveKey(rl_hkey, const wchar_t *, LPSECURITY_ATTRIBUTES);
+
+//}}}
+
+//I'll do these later (maybe) {{{
+
+//long rlRegGetKeySecurity(rl_hkey, SECURITY_INFORMATION,
+//                         PSECURITY_DESCRIPTOR, LPunsigned long);
+//long rlRegUnLoadKey(rl_hkey, const wchar_t *);
+//long rlRegSetKeySecurity(rl_hkey, SECURITY_INFORMATION, PSECURITY_DESCRIPTOR);
+//long rlRegConnectRegistry(const wchar_t *, rl_hkey, PHKEY);
+//long rlRegOpenCurrentUser(REGSAM, PHKEY);
+// }}}
+
+//these functions have Ex counterparts.  I'm going to ignore these for now... {{{
+
+//long rlRegEnumKey(rl_hkey, unsigned long, wchar_t *, unsigned long);
+//long rlRegCreateKey(rl_hkey key, const wchar_t *, PHKEY);
+//long rlRegOpenKey(rl_hkey key, const wchar_t *skname, rl_hkey *result);
+//long rlRegQueryValue(rl_hkey, const wchar_t *, wchar_t *, long *);
+//long rlRegSetValue(rl_hkey, const wchar_t *, unsigned long, const wchar_t *, unsigned long);
+//}}}
+// }}}

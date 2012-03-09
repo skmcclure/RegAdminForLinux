@@ -1,0 +1,33 @@
+It seems better but the test case I'm looking at still fails.  Here's
+the key on the left side of the diff:
+
+[HKEY_LOCAL_MACHINE\1425\ControlSet001\Control\criticaldevicedatabase\gendisk]
+"service"="disk"
+"classguid"="{4d36e967-e325-11ce-bfc1-08002be10318}"
+"upperfilters"="crcdisk"
+
+and here's the key on the right side:
+
+[HKEY_LOCAL_MACHINE\virgin\ControlSet001\Control\CriticalDeviceDatabase\gendisk]
+"Service"="disk"
+"ClassGUID"="{4D36E967-E325-11CE-BFC1-08002BE10318}"
+
+Here's the current output from rra_registry_diff:
+
+DELETE_VALUE(\HKEY_LOCAL_MACHINE\system\ControlSet001\Control\criticaldevicedatabase\gendisk,
+classguid, SZ, {4d36e967-e325-11ce-bfc1-08002be10318})
+DELETE_VALUE(\HKEY_LOCAL_MACHINE\system\ControlSet001\Control\criticaldevicedatabase\gendisk,
+service, SZ, disk)
+DELETE_VALUE(\HKEY_LOCAL_MACHINE\system\ControlSet001\Control\criticaldevicedatabase\gendisk,
+upperfilters, SZ, crcdisk)
+
+What I'd like to see is only one DELETE_VALUE line for the upperfilters value.
+
+I understand that it might be tricky to know if one can do a case
+insensitive compare of the values because the case might be
+significant in some cases but most of the time it's not.  Perhaps a
+switch/option could help?  Then depending on the kind of differences
+one is looking for, one would know if it matters and this case, I
+would've asked for case insensitive comparison of values.
+
+Thanks for the help on this.

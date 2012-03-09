@@ -1,0 +1,30 @@
+
+// 060713
+// I have just found a new structure in the registry.  When value data grows
+// beyond some size a db_key will take the place of the data.
+//
+struct hdb_key
+{
+    struct CellHeader hb;
+    int16_t id;
+    //structure depth, node count?
+    int16_t int16_t1;
+    //a pointer to an hnfc1
+    int32_t offset1;
+    //a pointer to another hnfc1 struct?
+    int32_t unknown1;
+};
+
+struct hnfc1
+{
+    struct CellHeader hb;
+    // pointers to cell that hold data or *maybe* to other hnfc1 structs
+    int32_t u[3];
+};
+
+//unknown part of DB_KEY
+struct un1
+{
+    struct CellHeader hb;
+    uint16_t v[4];
+};

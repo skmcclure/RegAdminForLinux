@@ -1,0 +1,19 @@
+#! /bin/sh
+
+set -e
+
+TDIR=$1
+
+. $SCRIPT_LIB_DIR/assert.sh
+
+# This stuff just isn't true when case can vary.  So commenting it out
+# till I think of a way to do this again.
+
+# assert_true test -e $TDIR/system32/config/system
+# assert_true test -e $TDIR/system32/config/software
+# assert_true test -e $TDIR/system32/config/SAM
+# assert_true test -e $TDIR/system32/config/SECURITY
+# assert_true test -e $TDIR/system32/config/userdiff
+# assert_true test -e $TDIR/system32/config/default
+
+exit 0

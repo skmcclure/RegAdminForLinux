@@ -1,0 +1,50 @@
+/*
+ * Authors:	James LewisMoss <jlm@racemi.com>
+ *
+ * Copyright (c) 2006 Racemi Inc
+ *
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; either version 2 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program; if not, write to the Free Software
+ * Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
+ *
+ */
+
+#ifndef RREGADMIN_RRA_TEST_CONSTS_H
+#define RREGADMIN_RRA_TEST_CONSTS_H 1
+
+#include <string>
+
+namespace RRegAdmin
+{
+    namespace Test
+    {
+        const std::string base_src_test_data_dir =
+            "@abs_top_srcdir@/test/data";
+
+        const std::string base_build_test_data_dir =
+            "@abs_top_builddir@/test/data";
+
+        const std::string good_keys_file =
+            "@abs_top_builddir@/test/data/shared-keys";
+        const std::string good_values_file =
+            "@abs_top_builddir@/test/data/shared-values";
+        const std::string single_hives_list_file =
+            "@abs_top_builddir@/test/data/hives.list";
+    }
+}
+
+#endif // RREGADMIN_RRA_TEST_CONSTS_H
+
+// Local variables:
+// mode: c++
+// End:

@@ -1,0 +1,26 @@
+#! /bin/sh
+
+START_DIR=$1
+END_DIR=$2
+
+if test -z "$START_DIR" ; then
+  echo "Need a starting dir"
+  exit 1
+fi
+if test -z "$END_DIR" ; then
+  echo "Need a ending dir"
+  exit 1
+fi
+
+set -e
+
+rm -rf $END_DIR
+
+mkdir $END_DIR
+
+TO_DIR=`pwd`/$END_DIR
+
+cd $START_DIR
+
+tar cf - system32 | ( cd $TO_DIR ; tar xf - )
+chmod -R +w $TO_DIR

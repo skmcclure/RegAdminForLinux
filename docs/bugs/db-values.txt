@@ -1,0 +1,7 @@
+ * Doesn't handle 'db' values.
+
+'db' values seem to be large values where the ValueKeyCell contains a
+long length and the linked ValueCell contains 12 bytes: 'd' 'b'
+[02|03|04] 00 ???? ????.
+
+Need to figure out where the 'db' values are located.

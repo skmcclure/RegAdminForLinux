@@ -1,0 +1,19 @@
+#! /bin/sh
+
+(
+  cd ..
+  make clean
+)
+
+(
+  find ../rregadmin -name '*.[ch]' -o -name '*.inl' \
+    | sed 's/^\.\.\///' \
+    | grep -v 'config.h$' \
+    | grep -v _test \
+    | grep -v '^\.'
+
+  find ../python -name '*.py' \
+    | sed 's/^\.\.\///' \
+    | grep -v _test
+
+) > POTFILES.in

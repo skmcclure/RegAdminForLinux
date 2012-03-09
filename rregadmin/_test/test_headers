@@ -1,0 +1,72 @@
+#! /bin/sh
+
+set -e
+#set -x
+
+EXIT_VALUE=0
+
+MODE=$1
+FILES_LIST=$2
+
+if test x$MODE = xC ; then
+  SUFFIX=c
+  COMPILE_COMMAND="$CCOMPILE -I . -I .."
+elif test x$MODE = xCXX ; then
+  SUFFIX=cpp
+  COMPILE_COMMAND="$CXXCOMPILE -I . -I .."
+fi
+
+export COMPILE_COMMAND
+export SUFFIX
+
+PROJECT_HEADERS=`cat $FILES_LIST`
+
+echo > big-tmp-test.$SUFFIX
+
+for i in $PROJECT_HEADERS ; do
+
+    BASE_HEADER_NAME=`basename $i`
+
+    rm -f tmp-test.$SUFFIX tmp-test.o
+
+    (
+        echo "#include <$i>"
+        echo "#include <$i>"
+    ) > tmp-test.$SUFFIX
+    (
+        echo "#include <$i>"
+        echo "#include <$i>"
+    ) >> big-tmp-test.$SUFFIX
+
+    (
+        set +e
+
+        if $COMPILE_COMMAND -c tmp-test.$SUFFIX -o tmp-test.o ; then
+            echo "Test success for header $i"
+            exit 0
+        else
+            echo "Test failure for header $i"
+            exit 1
+        fi
+    )
+    if test "$?" = "1" ; then
+        EXIT_VALUE=1
+    fi
+
+    rm -f tmp-test.$SUFFIX tmp-test.o
+done
+
+if $COMPILE_COMMAND -c big-tmp-test.$SUFFIX -o big-tmp-test.o ; then
+    echo "Test success for all headers"
+else
+    echo "Test failure for all headers"
+    EXIT_VALUE=1
+fi
+
+rm -f big-tmp-test.$SUFFIX big-tmp-test.o
+
+exit $EXIT_VALUE
+
+# Local variables:
+# mode: sh
+# End:

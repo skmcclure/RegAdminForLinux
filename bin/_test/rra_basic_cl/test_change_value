@@ -1,0 +1,21 @@
+#! /usr/bin/env python
+
+from ef_utils import *
+
+def my_test(self, d, test_dir, **kwds):
+    old_value = self.get_prog_out(CL_PROG, test_dir, "cat_value", d[0], d[1])
+    ef_debug_out("Changing value '%s' at '%s' to bleh" % (d[1], d[0]))
+    self.assertGoodProg(CL_PROG, test_dir, "has_value", d[0], d[1])
+    self.assertGoodProg(CL_PROG, test_dir, "add_value", d[0], d[1], "bleh")
+    self.assertGoodProg(CL_PROG, test_dir, "has_value", d[0], d[1])
+    new_value = self.get_prog_out(CL_PROG, test_dir, "cat_value", d[0], d[1])
+    self.assertEqual("bleh\0", new_value)
+    return
+
+class ChangeValueTest(EfTest):
+    pass
+
+add_value_example_tests(my_test, ChangeValueTest)
+
+if __name__ == '__main__':
+    unittest.main()

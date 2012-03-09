@@ -1,0 +1,21 @@
+#! /bin/sh
+
+run_on_files()
+{
+  for i in "$@" ; do
+    ./print_root_secdesc $i
+  done 2>&1 \
+    | grep -v 'hive_create failed' \
+    | perl -pe 's/O:/   - O:/; s/G:/\n     G:/; s/D:/\n     D:/; s/\)\(/)\n       (/g;'
+
+  echo
+  echo '----------------------------------------------------------------------'
+  echo
+}
+
+run_on_files `find ../test/data/hives -name SAM`
+run_on_files `find ../test/data/hives -name software`
+run_on_files `find ../test/data/hives -name system`
+run_on_files `find ../test/data/hives -name userdiff`
+run_on_files `find ../test/data/hives -name default`
+run_on_files `find ../test/data/hives -name SECURITY`

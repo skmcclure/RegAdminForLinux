@@ -1,0 +1,889 @@
+#! /usr/bin/env python
+
+import unittest
+
+TRUE = 1
+FALSE = 0
+
+try:
+    import rra_test_utils
+except:
+    import sys
+    sys.path = sys.path + [ "../../..", "../../../TEST/lib" ]
+    import rra_test_utils
+
+from rregadmin.util.path import Path
+from rregadmin.util.path_wrapper import rra_path_allocated_count
+
+class TestPathWrapper(rra_test_utils.RraTestCase):
+
+    def test_has_funcs1(self):
+
+        self.assertTrue(hasattr(Path, '_ccu_constructor_new'))
+        self.assertTrue(hasattr(Path, '_ccu_constructor_new_full'))
+        self.assertTrue(hasattr(Path, '_ccu_destructor_free'))
+
+        self.assertTrue(hasattr(Path, 'copy'))
+        self.assertTrue(hasattr(Path, 'copy_full'))
+
+        self.assertTrue(hasattr(Path, 'set'))
+        self.assertTrue(hasattr(Path, 'clear'))
+        self.assertTrue(hasattr(Path, 'is_valid'))
+        self.assertTrue(hasattr(Path, 'parse'))
+        self.assertTrue(hasattr(Path, 'add'))
+        self.assertTrue(hasattr(Path, 'append_part'))
+        self.assertTrue(hasattr(Path, 'prepend_part'))
+        self.assertTrue(hasattr(Path, 'normalize'))
+        self.assertTrue(hasattr(Path, 'number_of_parts'))
+        self.assertTrue(hasattr(Path, 'get_part'))
+        self.assertTrue(hasattr(Path, 'has_mode'))
+        self.assertTrue(hasattr(Path, 'is_absolute'))
+        self.assertTrue(hasattr(Path, 'is_relative'))
+        self.assertTrue(hasattr(Path, 'dirname'))
+        self.assertTrue(hasattr(Path, 'basename'))
+        self.assertTrue(hasattr(Path, 'as_str'))
+        self.assertTrue(hasattr(Path, 'get_delimiter'))
+        self.assertTrue(hasattr(Path, 'compare'))
+        self.assertTrue(hasattr(Path, 'equal'))
+        self.assertTrue(hasattr(Path, 'less'))
+        self.assertTrue(hasattr(Path, 'is_subpath'))
+        self.assertTrue(hasattr(Path, 'make_subpath'))
+        self.assertTrue(hasattr(Path, 'trim_front'))
+        self.assertTrue(hasattr(Path, 'trim_back'))
+
+        return
+
+    def test_create_delete1(self):
+
+        self.assertEqual(0, rra_path_allocated_count())
+
+        path1 = Path("/some/path")
+        self.assertEqual(1, rra_path_allocated_count())
+
+        path1 = None
+        self.assertEqual(0, rra_path_allocated_count())
+
+        return
+
+    def test_new_empty(self):
+
+        self.assertEqual(0, rra_path_allocated_count())
+
+        path1 = Path("")
+
+        self.assertEqual(0, path1.number_of_parts())
+        self.assertTrueNum(path1.is_relative())
+        self.assertFalseNum(path1.is_absolute())
+        self.assertEqual(".", path1.dirname())
+        self.assertEqual("", path1.basename())
+        self.assertEqual("", path1.as_str())
+
+        return
+
+    def test_new_absolute(self):
+
+        self.assertEqual(0, rra_path_allocated_count())
+
+        path1 = Path("/")
+
+        self.assertNotEqual(None, path1)
+        self.assertEqual(0, path1.number_of_parts())
+        self.assertFalseNum(path1.is_relative())
+        self.assertTrueNum(path1.is_absolute())
+        self.assertEqual("/", path1.dirname())
+        self.assertEqual("", path1.basename())
+        self.assertEqual("/", path1.as_str())
+
+        return
+
+    def test_new_simple1(self):
+
+        self.assertEqual(0, rra_path_allocated_count())
+
+        path1 = Path("foo")
+
+        self.assertNotEqual(None, path1)
+        self.assertEqual(1, path1.number_of_parts())
+        self.assertEqual("foo", path1.get_part(0))
+        self.assertTrueNum(path1.is_relative())
+        self.assertFalseNum(path1.is_absolute())
+        self.assertEqual(".", path1.dirname())
+        self.assertEqual("foo", path1.basename())
+        self.assertEqual("foo", path1.as_str())
+
+        return
+
+    def test_new_simple2(self):
+
+        self.assertEqual(0, rra_path_allocated_count())
+
+        path1 = Path("foo/foo")
+
+        self.assertNotEqual(None, path1)
+        self.assertEqual(2, path1.number_of_parts())
+        self.assertEqual("foo", path1.get_part(0))
+        self.assertEqual("foo", path1.get_part(1))
+        self.assertTrueNum(path1.is_relative())
+        self.assertFalseNum(path1.is_absolute())
+        self.assertEqual("foo", path1.dirname())
+        self.assertEqual("foo", path1.basename())
+        self.assertEqual("foo/foo", path1.as_str())
+
+        return
+
+    def test_parse1(self):
+
+        self.assertEqual(0, rra_path_allocated_count())
+
+        tdata1 =[
+            [ "./foo/.", False, [ ".", "foo", "." ] ],
+            [ "  foo / bar \\ bbbb", False, [ "  foo ", " bar ", " bbbb" ] ],
+            [ "\\HKEY_LOCAL_MACHINE\\software\\Microsoft\\Internet Explorer\\ActiveX Compatibility\\{00000566-0000-0010-8000-00AA006D2EA4}\\Compatibility Flags",
+              True,
+              [ "HKEY_LOCAL_MACHINE",
+                "software",
+                "Microsoft",
+                "Internet Explorer",
+                "ActiveX Compatibility",
+                "{00000566-0000-0010-8000-00AA006D2EA4}",
+                "Compatibility Flags" ] ],
+            [ "/foo", True, [ "foo" ] ],
+            [ "foo", False, [ "foo" ] ],
+            ]
+
+        path1 = Path("")
+
+        for texample in tdata1:
+
+            self.assertTrueNum(path1.parse(texample[0]),
+                               texample[0])
+            if texample[1]:
+                self.assertTrueNum(path1.is_absolute(),
+                                   texample[0])
+                self.assertFalseNum(path1.is_relative(),
+                                    texample[0])
+            else:
+                self.assertFalseNum(path1.is_absolute(),
+                                    texample[0])
+                self.assertTrueNum(path1.is_relative(),
+                                   texample[0])
+
+            self.assertEqual(len(texample[2]),
+                             path1.number_of_parts(),
+                             texample[0])
+
+            for index in xrange(0, len(texample[2])):
+                self.assertEqual(texample[2][index],
+                                 path1.get_part(index),
+                                 texample[0])
+
+        return
+
+    def test_parse_winmode1(self):
+
+        self.assertEqual(0, rra_path_allocated_count())
+
+        tdata1 =[
+            [ ".\\foo\\.", False, [ ".", "foo", "." ] ],
+            [ "  foo / bar \\ bbbb", False, [ "  foo / bar ", " bbbb" ] ],
+            [ "\\HKEY_LOCAL_MACHINE\\software\\Microsoft\\Internet Explorer\\ActiveX Compatibility\\{00000566-0000-0010-8000-00AA006D2EA4}\\Compatibility Flags",
+              True,
+              [ "HKEY_LOCAL_MACHINE",
+                "software",
+                "Microsoft",
+                "Internet Explorer",
+                "ActiveX Compatibility",
+                "{00000566-0000-0010-8000-00AA006D2EA4}",
+                "Compatibility Flags" ] ],
+            [ "\\foo", True, [ "foo" ] ],
+            [ "/foo", False, [ "/foo" ] ],
+            [ "foo", False, [ "foo" ] ],
+            ]
+
+        path1 = Path("", Path.Mode.WIN)
+
+        for texample in tdata1:
+
+            self.assertTrueNum(path1.parse(texample[0]),
+                               texample[0])
+            if texample[1]:
+                self.assertTrueNum(path1.is_absolute(),
+                                   texample[0])
+                self.assertFalseNum(path1.is_relative(),
+                                    texample[0])
+            else:
+                self.assertFalseNum(path1.is_absolute(),
+                                    texample[0])
+                self.assertTrueNum(path1.is_relative(),
+                                   texample[0])
+
+            self.assertEqual(len(texample[2]),
+                             path1.number_of_parts())
+
+            for index in xrange(0, len(texample[2])):
+                self.assertEqual(texample[2][index],
+                                 path1.get_part(index))
+
+        return
+
+    def test_new_full_win_delim1(self):
+
+        self.assertEqual(0, rra_path_allocated_count())
+
+        path1 = Path("foo/bar", Path.Mode.IN_WIN_DELIMITER)
+        self.assertNotEqual(None, path1)
+        self.assertEqual(2, path1.number_of_parts())
+        self.assertEqual("foo", path1.get_part(0))
+        self.assertEqual("bar", path1.get_part(1))
+
+        self.assertEqual("\\", path1.get_delimiter())
+
+        self.assertTrueNum(path1.is_relative())
+        self.assertFalseNum(path1.is_absolute())
+        self.assertEqual("foo", path1.dirname())
+        self.assertEqual("bar", path1.basename())
+        self.assertEqual("foo\\bar", path1.as_str())
+
+        return
+
+
+    def test_clear1(self):
+
+        self.assertEqual(0, rra_path_allocated_count())
+
+        path1 = Path("foo/bar/baz")
+
+        self.assertNotEqual(None, path1)
+        self.assertTrueNum(path1.is_relative())
+        self.assertEqual(3, path1.number_of_parts())
+
+        self.assertTrueNum(path1.clear())
+        self.assertTrueNum(path1.is_relative())
+        self.assertEqual(0, path1.number_of_parts())
+
+        path2 = Path("/baz/bar")
+
+        self.assertNotEqual(None, path2)
+        self.assertTrueNum(path2.is_absolute())
+        self.assertEqual(2, path2.number_of_parts())
+
+        self.assertTrueNum(path2.clear())
+        self.assertTrueNum(path1.is_relative())
+        self.assertEqual(0, path1.number_of_parts())
+
+        return
+
+
+    def test_set1(self):
+
+        self.assertEqual(0, rra_path_allocated_count())
+
+        path1 = Path("foo/bar/baz")
+
+        self.assertNotEqual(None, path1)
+        self.assertTrueNum(path1.is_relative())
+        self.assertEqual(3, path1.number_of_parts())
+
+        path2 = Path("/baz/bar")
+
+        self.assertNotEqual(None, path2)
+        self.assertTrueNum(path2.is_absolute())
+        self.assertEqual(2, path2.number_of_parts())
+
+        self.assertTrueNum(path1.set(path2))
+        self.assertTrueNum(path1.is_absolute())
+        self.assertEqual(2, path1.number_of_parts())
+
+        return
+
+
+    def test_normalize1(self):
+
+        self.assertEqual(0, rra_path_allocated_count())
+
+        path1 = Path("foo\\nfoo")
+        self.assertNotEqual(None, path1)
+        self.assertEqual(2, path1.number_of_parts())
+        self.assertEqual("foo/nfoo",
+                     path1.as_str())
+
+        self.assertTrueNum(path1.is_relative())
+        self.assertFalseNum(path1.is_absolute())
+        self.assertEqual("foo",
+                     path1.get_part(0))
+        self.assertEqual("nfoo",
+                     path1.get_part(1))
+
+        self.assertTrueNum(path1.normalize())
+
+        self.assertEqual(2, path1.number_of_parts())
+
+        self.assertTrueNum(path1.is_relative())
+        self.assertFalseNum(path1.is_absolute())
+        self.assertEqual("foo", path1.get_part(0))
+        self.assertEqual("nfoo", path1.get_part(1))
+
+        return
+
+
+    def test_normalize2(self):
+
+        self.assertEqual(0, rra_path_allocated_count())
+
+        tdata1 = [
+            [ "./foo/.", False, [ ".", "foo", "." ], [ "foo" ], "foo" ],
+            [ "/./foo/.", True, [ ".", "foo", "." ], [ "foo" ], "/foo"],
+            [ "/./././././././.", True,
+              [ ".", ".", ".", ".", ".", ".", ".", "." ], [], "/" ],
+            [ "././././././././.", False,
+              [ ".", ".", ".", ".", ".", ".", ".", ".", "." ], [], "" ],
+            [ "././././.bar/.foo/baz././.", False,
+              [ ".", ".", ".", ".", ".bar", ".foo", "baz.", ".", "." ],
+              [ ".bar", ".foo", "baz." ], ".bar/.foo/baz." ],
+
+            [ "../foo", False, [ "..", "foo" ], [ "..", "foo" ], "../foo" ],
+            [ "../foo/..", False, [ "..", "foo", ".." ], [ ".." ], ".." ],
+            [ "/../foo/..", True, [ "..", "foo", ".." ], [], "/" ],
+
+            [ "foo", False, [ "foo" ], [ "foo" ], "foo"]
+        ]
+
+        for texample in tdata1:
+
+            path1 = Path(texample[0])
+            self.assertNotEqual(None, path1)
+
+            if texample[1]:
+                self.assertFalseNum(path1.is_relative())
+                self.assertTrueNum(path1.is_absolute())
+            else:
+                self.assertTrueNum(path1.is_relative())
+                self.assertFalseNum(path1.is_absolute())
+
+            self.assertEqual(len(texample[2]),
+                             path1.number_of_parts())
+
+            for i in xrange(0, len(texample[2])):
+                self.assertEqual(texample[2][i],
+                                 path1.get_part(i))
+
+            self.assertEqual(texample[0], path1.as_str())
+
+            self.assertTrueNum(path1.normalize())
+
+            if texample[1]:
+                self.assertFalseNum(path1.is_relative())
+                self.assertTrueNum(path1.is_absolute())
+            else:
+                self.assertTrueNum(path1.is_relative())
+                self.assertFalseNum(path1.is_absolute())
+
+
+            self.assertEqual(len(texample[3]),
+                             path1.number_of_parts())
+
+            for i in xrange(0, len(texample[3])):
+                self.assertEqual(texample[3][i],
+                                 path1.get_part(i))
+
+            self.assertEqual(texample[4], path1.as_str())
+
+        return
+
+
+    def test_add1(self):
+
+        self.assertEqual(0, rra_path_allocated_count())
+
+        path1 = Path("foo/foo")
+        self.assertNotEqual(None, path1)
+        path2 = Path("bar")
+
+        self.assertTrueNum(path1.add(path2))
+
+        self.assertEqual(3, path1.number_of_parts())
+        self.assertTrueNum(path1.is_relative())
+        self.assertFalseNum(path1.is_absolute())
+        self.assertEqual("foo/foo", path1.dirname())
+        self.assertEqual("bar", path1.basename())
+        self.assertEqual("foo/foo/bar", path1.as_str())
+
+        return
+
+
+    def test_add2(self):
+
+        self.assertEqual(0, rra_path_allocated_count())
+
+        path1 = Path("foo/foo")
+        self.assertNotEqual(None, path1)
+        path2 = Path("/bar")
+
+        self.assertFalseNum(path1.add(path2))
+
+        return
+
+
+    def test_add3(self):
+
+        self.assertEqual(0, rra_path_allocated_count())
+
+        path1 = Path("/foo/foo")
+        self.assertNotEqual(None, path1)
+        path2 = Path("bar")
+
+        self.assertTrueNum(path1.add(path2))
+
+        self.assertEqual(3, path1.number_of_parts())
+        self.assertFalseNum(path1.is_relative())
+        self.assertTrueNum(path1.is_absolute())
+        self.assertEqual("/foo/foo", path1.dirname())
+        self.assertEqual("bar", path1.basename())
+        self.assertEqual("/foo/foo/bar", path1.as_str())
+
+        return
+
+
+    def test_compare1(self):
+
+        self.assertEqual(0, rra_path_allocated_count())
+
+        tdata1 = [
+            [ "/./foo", "/foo", 0 ],
+            [ "/foo", "foo", 1 ],
+            [ "/foo/bar/..", "/foo", 0 ],
+            [ "/foo", "/foo/bar", -1 ],
+
+            [ "foo", "foo", 0 ]
+        ]
+
+        for texample in tdata1:
+
+            p1 = Path(texample[0])
+            p2 = Path(texample[1])
+
+            if texample[2] == 0:
+                self.assertEqual(0, p1.compare(p2))
+                self.assertTrueNum(p1.equal(p2))
+            elif texample[2] > 0:
+                self.assert_(0 < p1.compare(p2))
+                self.assertTrueNum(p2.less(p1))
+            elif texample[2] < 0:
+                self.assert_(0 > p1.compare(p2))
+                self.assertTrueNum(p1.less(p2))
+
+        return
+
+
+    def test_subpath1(self):
+
+        self.assertEqual(0, rra_path_allocated_count())
+
+        tdata1 = [
+            [ "/./foo", "/foo", TRUE, "" ],
+            [ "/foo", "foo", FALSE ],
+            [ "/foo/bar/..", "/foo", TRUE, "" ],
+            [ "/foo", "/foo/bar", TRUE, "bar" ],
+
+            [ "foo", "foo", TRUE, "" ]
+            ]
+
+        for texample in tdata1:
+
+            p1 = Path(texample[0])
+            p2 = Path(texample[1])
+
+            self.assertEqual(texample[2],
+                             p1.is_subpath(p2))
+
+            if texample[2] == TRUE:
+
+                sp1 = Path(texample[3])
+                self.assertNotEqual(None, sp1)
+
+                sp2 = p1.make_subpath(p2)
+                self.assertNotEqual(None, sp2)
+
+                self.assertTrueNum(sp1.equal(sp2))
+
+
+        return
+
+
+    def test_subpath2(self):
+
+        self.assertEqual(0, rra_path_allocated_count())
+
+        tdata1 = [
+            [ "\\.\\foo", "\\foo", TRUE, "" ],
+            [ "\\foo", "foo", FALSE, "" ],
+            [ "\\foo\\bar\\..", "\\foo", TRUE, "" ],
+            [ "\\foo", "\\foo\\bar", TRUE, "bar" ],
+
+            [ "foo", "foo", TRUE, "" ]
+        ]
+
+        for texample in tdata1:
+
+            p1 = Path(texample[0], Path.Mode.DEFAULT)
+            p2 = Path(texample[1], Path.Mode.DEFAULT)
+
+            self.assertEqual(texample[2], p1.is_subpath(p2))
+
+            if texample[2] == 1:
+
+                sp1 = Path(texample[3], Path.Mode.DEFAULT)
+                self.assertNotEqual(None, sp1)
+
+                sp2 = p1.make_subpath(p2)
+                self.assertNotEqual(None, sp2)
+
+                self.assertTrueNum(sp1.equal(sp2))
+
+        return
+
+
+    def test_subpath_case_insensitive1(self):
+
+        self.assertEqual(0, rra_path_allocated_count())
+
+        tdata1 = [
+            [ "/./foo", "/Foo", TRUE, "" ],
+            [ "/foo", "foo", FALSE, "" ],
+            [ "/fOo/bar/..", "/FoO", TRUE, "" ],
+            [ "/foO", "/foo/bar", TRUE, "bar" ],
+
+            [ "fOO", "foo", TRUE, ""]
+            ]
+
+        for texample in tdata1:
+
+            p1 = Path(texample[0],
+                                   Path.Mode.CASE_INSENSITIVE)
+            p2 = Path(texample[1],
+                                   Path.Mode.CASE_INSENSITIVE)
+
+            self.assertEqual(texample[2], p1.is_subpath(p2))
+
+            if texample[2] == 1:
+
+                sp1 = Path(texample[3],
+                                        Path.Mode.CASE_INSENSITIVE)
+                self.assertNotEqual(None, sp1)
+
+                sp2 = p1.make_subpath(p2)
+                self.assertNotEqual(None, sp2)
+
+                self.assertTrueNum(sp1.equal(sp2))
+
+        return
+
+
+    def test_subpath_case_insensitive2(self):
+
+        self.assertEqual(0, rra_path_allocated_count())
+
+        tdata1 = [
+            [ "\\.\\foo", "\\Foo", TRUE, "" ],
+            [ "\\foo", "foo", FALSE, "" ],
+            [ "\\fOo", "\\FoO\\bar", TRUE, "bar" ],
+            [ "\\foO\\bar", "\\foo\\bar\\baz", TRUE, "baz" ],
+
+            [ "fOO", "foo", TRUE, "" ]
+        ]
+
+        for texample in tdata1:
+
+            p1 = Path(texample[0], Path.Mode.DEFAULT)
+            p2 = Path(texample[1], Path.Mode.DEFAULT)
+
+            self.assertEqual(texample[2], p1.is_subpath(p2))
+
+            if texample[2] == 1:
+
+                sp1 = Path(texample[3], Path.Mode.DEFAULT)
+                self.assertNotEqual(None, sp1)
+
+                sp2 = p1.make_subpath(p2)
+                self.assertNotEqual(None, sp2)
+
+                self.assertTrueNum(sp1.equal(sp2))
+
+        return
+
+
+    def test_trim_front1(self):
+
+        self.assertEqual(0, rra_path_allocated_count())
+
+        tdata1 = [
+            [ "/foo/bar/baz", "foo/bar/baz", TRUE, 1 ],
+
+            [ "", "", FALSE, 1 ],
+            [ "/", "", TRUE, 1 ],
+            [ "/foo/bar", "/foo/bar", FALSE, 4 ],
+            [ "/foo/bar", "/foo/bar", FALSE, 10 ],
+            [ "/foo/bar", "/foo/bar", FALSE, 20 ],
+            [ "/foo/bar", "/foo/bar", FALSE, 100 ],
+            [ "/foo/bar", "", TRUE, 3 ],
+
+            [ "bar/baz/foo", "bar/baz/foo", TRUE, 0 ],
+            [ "bar/baz/foo", "baz/foo", TRUE, 1 ],
+            [ "bar/baz/foo", "foo", TRUE, 2 ],
+            [ "bar/baz/foo", "", TRUE, 3 ],
+            [ "bar/baz/foo", "bar/baz/foo", FALSE, 4 ],
+
+            [ "foo", "", TRUE, 1 ]
+        ]
+
+        for texample in tdata1:
+
+            p1 = Path(texample[0])
+            self.assertNotEqual(None, p1)
+
+            p2 = p1.copy()
+
+            if texample[2] == TRUE:
+
+                self.assertTrueNum(
+                    p2.trim_front(texample[3]))
+
+                if p1.is_absolute() == TRUE:
+
+                    self.assertEqual(
+                        p1.number_of_parts() - texample[3] + 1,
+                        p2.number_of_parts())
+
+                    self.assertTrueNum(p2.is_relative())
+                    self.assertFalseNum(p2.is_absolute())
+                else:
+                    self.assertEqual(
+                        p1.number_of_parts() - texample[3],
+                        p2.number_of_parts())
+
+                self.assertEqual(texample[1], p2.as_str())
+            else:
+
+                self.assertFalseNum(
+                    p2.trim_front(texample[3]))
+
+        return
+
+
+    def test_trim_back1(self):
+
+        self.assertEqual(0, rra_path_allocated_count())
+
+        tdata1 = [
+            [ "/foo/bar/baz", "/foo/bar", TRUE, 1 ],
+
+            [ "", "", FALSE, 1 ],
+            [ "/", "", TRUE, 1 ],
+            [ "/foo/bar", "/foo/bar", FALSE, 4 ],
+            [ "/foo/bar", "/foo/bar", FALSE, 10 ],
+            [ "/foo/bar", "/foo/bar", FALSE, 20 ],
+            [ "/foo/bar", "/foo/bar", FALSE, 100 ],
+            [ "/foo/bar", "", TRUE, 3 ],
+            [ "/foo/bar", "/", TRUE, 2 ],
+            [ "/foo/bar", "/foo", TRUE, 1 ],
+
+            [ "bar/baz/foo", "bar/baz/foo", TRUE, 0 ],
+            [ "bar/baz/foo", "bar/baz", TRUE, 1 ],
+            [ "bar/baz/foo", "bar", TRUE, 2 ],
+            [ "bar/baz/foo", "", TRUE, 3 ],
+            [ "bar/baz/foo", "bar/baz/foo", FALSE, 4 ],
+
+            [ "foo", "", TRUE, 1 ]
+        ]
+
+        for texample in tdata1:
+
+            p1 = Path(texample[0])
+            self.assertNotEqual(None, p1)
+
+            p2 = p1.copy()
+
+            if texample[2] == TRUE:
+
+                self.assertTrueNum(p2.trim_back(texample[3]))
+
+                if p1.is_absolute() == TRUE:
+
+                    if texample[3] > p1.number_of_parts():
+                        self.assertEqual(0, p2.number_of_parts())
+                        self.assertTrueNum(p2.is_relative())
+                        self.assertFalseNum(p2.is_absolute())
+                    else:
+                        self.assertEqual(
+                            p1.number_of_parts() - texample[3],
+                            p2.number_of_parts())
+                else:
+                    self.assertEqual(
+                        p1.number_of_parts() - texample[3],
+                        p2.number_of_parts())
+
+                self.assertEqual(texample[1], p2.as_str())
+            else:
+                self.assertFalseNum(p2.trim_back(texample[3]))
+
+        return
+
+
+    def test_append1(self):
+
+        self.assertEqual(0, rra_path_allocated_count())
+
+        path1 = Path("/foo/foo")
+        self.assertNotEqual(None, path1)
+
+        self.assertEqual(2, path1.number_of_parts())
+        self.assertTrueNum(path1.is_absolute())
+
+        self.assertTrueNum(path1.append_part("baz"))
+        self.assertEqual(3, path1.number_of_parts())
+        self.assertTrueNum(path1.is_absolute())
+        self.assertEqual("/foo/foo/baz", path1.as_str())
+
+        return
+
+
+    def test_append2(self):
+
+        self.assertEqual(0, rra_path_allocated_count())
+
+        path1 = Path("/foo/foo")
+
+        self.assertNotEqual(None, path1)
+
+        self.assertEqual(2, path1.number_of_parts())
+        self.assertTrueNum(path1.is_absolute())
+
+        self.assertFalseNum(path1.append_part(""))
+        self.assertEqual(2, path1.number_of_parts())
+        self.assertTrueNum(path1.is_absolute())
+        self.assertEqual("/foo/foo", path1.as_str())
+
+        self.assertFalseNum(path1.append_part("bla/boo"))
+        self.assertEqual(2, path1.number_of_parts())
+        self.assertTrueNum(path1.is_absolute())
+        self.assertEqual("/foo/foo", path1.as_str())
+
+        self.assertFalseNum(path1.append_part("bla\\boo"))
+        self.assertEqual(2, path1.number_of_parts())
+        self.assertTrueNum(path1.is_absolute())
+        self.assertEqual("/foo/foo", path1.as_str())
+
+        self.assertFalseNum(path1.append_part(None))
+        self.assertEqual(2, path1.number_of_parts())
+        self.assertTrueNum(path1.is_absolute())
+        self.assertEqual("/foo/foo", path1.as_str())
+
+        return
+
+
+    def test_prepend1(self):
+
+        self.assertEqual(0, rra_path_allocated_count())
+
+        path1 = Path("foo/foo")
+
+        self.assertNotEqual(None, path1)
+
+        self.assertEqual(2, path1.number_of_parts())
+        self.assertFalseNum(path1.is_absolute())
+
+        self.assertTrueNum(path1.prepend_part("baz"))
+        self.assertEqual(3, path1.number_of_parts())
+        self.assertFalseNum(path1.is_absolute())
+        self.assertEqual("baz/foo/foo", path1.as_str())
+
+        self.assertTrueNum(path1.prepend_part("/"))
+        self.assertEqual(3, path1.number_of_parts())
+        self.assertTrueNum(path1.is_absolute())
+        self.assertEqual("/baz/foo/foo", path1.as_str())
+
+        self.assertFalseNum(path1.prepend_part("bee"))
+        self.assertEqual(3, path1.number_of_parts())
+        self.assertTrueNum(path1.is_absolute())
+        self.assertEqual("/baz/foo/foo", path1.as_str())
+
+        return
+
+
+    def test_prepend2(self):
+
+        self.assertEqual(0, rra_path_allocated_count())
+
+        path1 = Path("foo/foo")
+
+        self.assertNotEqual(None, path1)
+
+        self.assertEqual(2, path1.number_of_parts())
+        self.assertFalseNum(path1.is_absolute())
+
+        self.assertTrueNum(path1.prepend_part("baz"))
+        self.assertEqual(3, path1.number_of_parts())
+        self.assertFalseNum(path1.is_absolute())
+        self.assertEqual("baz/foo/foo", path1.as_str())
+
+        self.assertTrueNum(path1.prepend_part("\\"))
+        self.assertEqual(3, path1.number_of_parts())
+        self.assertTrueNum(path1.is_absolute())
+        self.assertEqual("/baz/foo/foo", path1.as_str())
+
+        self.assertFalseNum(path1.prepend_part("bee"))
+        self.assertEqual(3, path1.number_of_parts())
+        self.assertTrueNum(path1.is_absolute())
+        self.assertEqual("/baz/foo/foo", path1.as_str())
+
+        return
+
+
+    def test_prepend3(self):
+
+        self.assertEqual(0, rra_path_allocated_count())
+
+        path1 = Path("foo/foo")
+        self.assertNotEqual(None, path1)
+
+        self.assertEqual(2, path1.number_of_parts())
+        self.assertFalseNum(path1.is_absolute())
+
+        self.assertFalseNum(path1.prepend_part(""))
+        self.assertEqual(2, path1.number_of_parts())
+        self.assertFalseNum(path1.is_absolute())
+        self.assertEqual("foo/foo", path1.as_str())
+
+        self.assertFalseNum(path1.prepend_part("bla/boo"))
+        self.assertEqual(2, path1.number_of_parts())
+        self.assertFalseNum(path1.is_absolute())
+        self.assertEqual("foo/foo", path1.as_str())
+
+        self.assertFalseNum(path1.prepend_part("bla\\boo"))
+        self.assertEqual(2, path1.number_of_parts())
+        self.assertFalseNum(path1.is_absolute())
+        self.assertEqual("foo/foo", path1.as_str())
+
+        self.assertFalseNum(path1.prepend_part(None))
+        self.assertEqual(2, path1.number_of_parts())
+        self.assertFalseNum(path1.is_absolute())
+        self.assertEqual("foo/foo", path1.as_str())
+
+        return
+
+
+    def test_default1(self):
+
+        self.assertEqual(0, rra_path_allocated_count())
+
+        path1 = Path("\\HKEY_LOCAL_MACHINE\\system",
+                     Path.Mode.DEFAULT)
+        path2 = Path("\\HKEY_LOCAL_MACHINE\\System",
+                     Path.Mode.DEFAULT)
+
+        self.assertTrueNum(path1.equal(path2))
+
+        return
+
+if __name__ == '__main__':
+    rra_test_utils.main()

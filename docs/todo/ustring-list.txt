@@ -1,0 +1,2 @@
+Add sorted and unique properties to rregadmin/util/ustring_list and
+use in diff code for value key names.

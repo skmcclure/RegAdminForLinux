@@ -1,0 +1,24 @@
+#! /bin/sh
+
+set -e
+#set -x
+
+TDIR=$1
+
+. $SCRIPT_LIB_DIR/assert.sh
+
+TOP_KEY="\\HKEY_LOCAL_MACHINE\\software\\Foobar\\bleh"
+
+assert_true "$CL_PROG" "$TDIR" "add_key" "$TOP_KEY"
+
+# Thirty should cause the hive to expand which is where one bug came from
+# before.
+for i in `seq 0 30` ; do
+    NEW_KEY="$TOP_KEY\\Test$i"
+    if test "$DEBUG_OUT" = "true" ; then
+        echo "Adding $NEW_KEY"
+    fi
+    assert_true "$CL_PROG" "$TDIR" "add_key" "$NEW_KEY"
+done
+
+exit 0

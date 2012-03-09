@@ -1,0 +1,29 @@
+Problems:
+
+1) How to deal with security descriptor permissions?
+
+punt?
+
+2) What to set the default permissions to?
+
+Mounter?
+
+3) How to deal with 'file' 'types'?
+
+extended attribute?
+
+4) How to deal with / being in names?
+
+Use html-like encoding?
+
+5) How to deal with same named keys and values?
+
+K-, V- prefixes?
+
+6) How to deal with empty 'file' names?
+
+see 5.
+
+7) How to deal with 'special' file data?
+
+(like sam F and V values) punt?

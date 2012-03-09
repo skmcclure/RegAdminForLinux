@@ -1,0 +1,7 @@
+
+* Docs
+
+ - [[todo.muse][TODO]]
+ - [[bugs.muse][Bugs]]
+ - [[readme.muse][README]]
+ - [[log.muse][Log]]

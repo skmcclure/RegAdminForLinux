@@ -1,0 +1,4 @@
+I've got some test data with aclists marked as revision 4
+(ACLIST_REVISION_ADS), but I can't figure out how to determine when
+that is an appropriate revision.  I guess I'm going to have to ignore
+it for now.

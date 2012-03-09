@@ -1,0 +1,2065 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR Racemi
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2008-04-30 22:32-0400\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=CHARSET\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: rregadmin/cli/options.c:45
+msgid "Make backups of hives before write."
+msgstr ""
+
+#: rregadmin/cli/options.c:54
+msgid "Run a check on hive integrity when it is read."
+msgstr ""
+
+#: rregadmin/cli/options.c:63
+msgid "Run a check on hive integrity when it is written."
+msgstr ""
+
+#: rregadmin/cli/options.c:79
+msgid "Options for the Basic API portion of the RRegAdmin library"
+msgstr ""
+
+#: rregadmin/cli/options.c:125 rregadmin/util/options.c:172
+#, c-format
+msgid "Got > 0 return from poptGetNextOpt %s: %s: %d"
+msgstr ""
+
+#: rregadmin/cli/options.c:132 rregadmin/util/options.c:179
+#, c-format
+msgid "Unable to parse options from %s: %s: %s"
+msgstr ""
+
+#: rregadmin/cli/options.c:141 rregadmin/util/options.c:190
+#, c-format
+msgid "Unable to split options from %s: %s"
+msgstr ""
+
+#: rregadmin/cli/options.c:145 rregadmin/util/options.c:192
+msgid "No error message"
+msgstr ""
+
+#: rregadmin/cli/basic.c:117
+msgid "Set the exit status and return."
+msgstr ""
+
+#: rregadmin/cli/basic.c:122 rregadmin/cli/basic.c:128
+#: rregadmin/cli/basic.c:134 rregadmin/cli/basic.c:140
+#: rregadmin/cli/basic.c:146 rregadmin/cli/basic.c:152
+#: rregadmin/cli/basic.c:158
+msgid "<path>"
+msgstr ""
+
+#: rregadmin/cli/basic.c:123
+msgid "Change current working key to <path>."
+msgstr ""
+
+#: rregadmin/cli/basic.c:129
+msgid "Check to see if key at <path> exists."
+msgstr ""
+
+#: rregadmin/cli/basic.c:135
+msgid "Show information about the key at <path>."
+msgstr ""
+
+#: rregadmin/cli/basic.c:141
+msgid "Print parseable information about the key at <path>."
+msgstr ""
+
+#: rregadmin/cli/basic.c:147
+msgid "Delete the key at <path>."
+msgstr ""
+
+#: rregadmin/cli/basic.c:153
+msgid "Check to see if the key at <path> is allowed to be deleted."
+msgstr ""
+
+#: rregadmin/cli/basic.c:159
+msgid "Add key at <path>.  If the key already exists this is successful."
+msgstr ""
+
+#: rregadmin/cli/basic.c:164 rregadmin/cli/basic.c:170
+#: rregadmin/cli/basic.c:176 rregadmin/cli/basic.c:182
+msgid "<path> <value name>"
+msgstr ""
+
+#: rregadmin/cli/basic.c:165
+msgid "Check to see if value <value name> at <path> exists."
+msgstr ""
+
+#: rregadmin/cli/basic.c:171
+msgid "Show in a humam friendly format the value <value name> at <path>."
+msgstr ""
+
+#: rregadmin/cli/basic.c:177
+msgid "Output the raw value of <value name> from <path>."
+msgstr ""
+
+#: rregadmin/cli/basic.c:183
+msgid "Delete the value <value name> at <path>."
+msgstr ""
+
+#: rregadmin/cli/basic.c:188
+msgid "<path> <value name> [ <value> | <type> <value> | <type> -F <filename> ]"
+msgstr ""
+
+#: rregadmin/cli/basic.c:190
+msgid ""
+"Add a value.  With no arguments after <value name> create an empty value.  "
+"With one argument create a string value of <value>. With two arguments "
+"create a value of type <type> from the string in <value>.  With three "
+"arguments read the data from <filename> and create value of type <type>."
+msgstr ""
+
+#: rregadmin/cli/basic.c:199
+msgid "<sub command> <path> <value name> <byte number> <mask>"
+msgstr ""
+
+#: rregadmin/cli/basic.c:200
+msgid ""
+"Modify value <value name> at <path> using one of the sub commands (clear_bit "
+"or set_bit) at byte <byte number> with mask <mask>."
+msgstr ""
+
+#: rregadmin/cli/basic.c:356 rregadmin/cli/basic.c:432
+#: rregadmin/cli/basic.c:459 rregadmin/cli/basic.c:505
+#: rregadmin/cli/basic.c:552 rregadmin/cli/basic.c:607
+#: rregadmin/cli/basic.c:662 rregadmin/cli/basic.c:705
+#: rregadmin/cli/basic.c:748 rregadmin/cli/basic.c:798
+#: rregadmin/cli/basic.c:847 rregadmin/cli/basic.c:902
+#: rregadmin/cli/basic.c:950 rregadmin/cli/basic.c:1140
+#: rregadmin/cli/basic.c:1284
+msgid "RRACliState is NULL"
+msgstr ""
+
+#: rregadmin/cli/basic.c:363
+msgid "need at least one argument"
+msgstr ""
+
+#: rregadmin/cli/basic.c:368 rregadmin/cli/basic.c:454
+#: rregadmin/cli/basic.c:500 rregadmin/cli/basic.c:547
+#: rregadmin/cli/basic.c:602 rregadmin/cli/basic.c:657
+#: rregadmin/cli/basic.c:700 rregadmin/cli/basic.c:743
+#: rregadmin/cli/basic.c:793 rregadmin/cli/basic.c:842
+#: rregadmin/cli/basic.c:897 rregadmin/cli/basic.c:945
+#: rregadmin/cli/basic.c:1135 rregadmin/cli/basic.c:1279
+#, c-format
+msgid "running: %s"
+msgstr ""
+
+#: rregadmin/cli/basic.c:379
+#, c-format
+msgid "Couldn't find operation for %s"
+msgstr ""
+
+#: rregadmin/cli/basic.c:439
+msgid "exit command takes no arguments."
+msgstr ""
+
+#: rregadmin/cli/basic.c:466
+msgid "cd command takes one and only one argument"
+msgstr ""
+
+#: rregadmin/cli/basic.c:485
+#, c-format
+msgid "key %s doesn't exist"
+msgstr ""
+
+#: rregadmin/cli/basic.c:512
+msgid "has_key command takes one and only one argument"
+msgstr ""
+
+#: rregadmin/cli/basic.c:559 rregadmin/cli/basic.c:614
+msgid "show_key command takes zero or one arguments"
+msgstr ""
+
+#: rregadmin/cli/basic.c:580 rregadmin/cli/basic.c:635
+#, c-format
+msgid "No key at %s"
+msgstr ""
+
+#: rregadmin/cli/basic.c:669
+msgid "delete_key command takes one and only one argument"
+msgstr ""
+
+#: rregadmin/cli/basic.c:685
+#, c-format
+msgid "Unable to delete key %s"
+msgstr ""
+
+#: rregadmin/cli/basic.c:713
+msgid "is_deletable_key command takes one and only one argument"
+msgstr ""
+
+#: rregadmin/cli/basic.c:755
+msgid "add_key command takes one and only one argument"
+msgstr ""
+
+#: rregadmin/cli/basic.c:806
+msgid "has_value command takes two arguments: <path> <value name>"
+msgstr ""
+
+#: rregadmin/cli/basic.c:855
+msgid "cat_value command takes two arguments: <path> <value name>"
+msgstr ""
+
+#: rregadmin/cli/basic.c:868 rregadmin/cli/basic.c:923
+#, c-format
+msgid "No value at %s"
+msgstr ""
+
+#: rregadmin/cli/basic.c:875
+msgid "Couldn't get value"
+msgstr ""
+
+#: rregadmin/cli/basic.c:910
+msgid "show_value command takes two arguments: <path> <value name>"
+msgstr ""
+
+#: rregadmin/cli/basic.c:958
+msgid "delete_value command takes two arguments: <path> <value name>"
+msgstr ""
+
+#: rregadmin/cli/basic.c:997 rregadmin/cli/basic.c:1050
+#, c-format
+msgid "add_value: invalid type string: %s"
+msgstr ""
+
+#: rregadmin/cli/basic.c:1062
+#, c-format
+msgid "add_value: error loading from file %s"
+msgstr ""
+
+#: rregadmin/cli/basic.c:1082
+msgid "Generate value from no args"
+msgstr ""
+
+#: rregadmin/cli/basic.c:1088
+#, c-format
+msgid "Generate value from one arg: '%s'"
+msgstr ""
+
+#: rregadmin/cli/basic.c:1095
+#, c-format
+msgid "Generate value from two args: '%s', '%s'"
+msgstr ""
+
+#: rregadmin/cli/basic.c:1107
+msgid "add_value: Required option -F for read from file not given"
+msgstr ""
+
+#: rregadmin/cli/basic.c:1112
+#, c-format
+msgid "Generate value from arg -F arg: '%s', '%s'"
+msgstr ""
+
+#: rregadmin/cli/basic.c:1122
+#, c-format
+msgid "add_value: Invalid number of arguments: %d"
+msgstr ""
+
+#: rregadmin/cli/basic.c:1148
+msgid "add_value command takes at least two arguments: <path> <value name>"
+msgstr ""
+
+#: rregadmin/cli/basic.c:1157
+msgid "No value generated"
+msgstr ""
+
+#: rregadmin/cli/basic.c:1292
+msgid ""
+"modify_value requires four arguments: <sub operation> <path> <value name> "
+"<byte number> <mask>"
+msgstr ""
+
+#: rregadmin/cli/basic.c:1307
+#, c-format
+msgid "No value at path %s"
+msgstr ""
+
+#: rregadmin/cli/basic.c:1317
+#, c-format
+msgid "Byte number (%s) isn't a 32 bit unsigned int"
+msgstr ""
+
+#: rregadmin/cli/basic.c:1324
+#, c-format
+msgid "Mask (%s) isn't an 8 bit unsigned int"
+msgstr ""
+
+#: rregadmin/cli/basic.c:1337
+msgid "clear bit modify failed"
+msgstr ""
+
+#: rregadmin/cli/basic.c:1345
+msgid "set bit modify failed"
+msgstr ""
+
+#: rregadmin/cli/basic.c:1352
+msgid "The only suboperations supported are clear_bit and set_bit"
+msgstr ""
+
+#: rregadmin/cli/init.c:44
+msgid "Initializing cli module"
+msgstr ""
+
+#: rregadmin/cli/init.c:60
+msgid "Initializing cli module from env"
+msgstr ""
+
+#: rregadmin/util/fs.c:70 rregadmin/util/fs.c:77 rregadmin/util/fs.c:100
+#: rregadmin/util/fs.c:147
+#, c-format
+msgid "Found path %s"
+msgstr ""
+
+#: rregadmin/util/fs.c:117
+#, c-format
+msgid "Looking through dir %s"
+msgstr ""
+
+#: rregadmin/util/fs.c:132
+#, c-format
+msgid "Found duplicate entry: %s vs %s"
+msgstr ""
+
+#: rregadmin/util/fs.c:235
+#, c-format
+msgid "Error creating temp dir %s"
+msgstr ""
+
+#: rregadmin/util/fs.c:257
+#, c-format
+msgid "Error creating temp dir %s: %s"
+msgstr ""
+
+#: rregadmin/util/options.c:56
+#, c-format
+msgid "Unknown argument to -l option: %s"
+msgstr ""
+
+#: rregadmin/util/options.c:61
+#, c-format
+msgid "Unhandled argument: %s"
+msgstr ""
+
+#: rregadmin/util/options.c:86
+msgid "Turn on debug output."
+msgstr ""
+
+#: rregadmin/util/options.c:96
+msgid "Set the log level to a specific value."
+msgstr ""
+
+#: rregadmin/util/options.c:106
+msgid "Turn on memory debugging."
+msgstr ""
+
+#: rregadmin/util/options.c:123
+msgid "Options for the Util portion of the RRegAdmin library"
+msgstr ""
+
+#: rregadmin/util/value_type.c:81
+msgid "No associated type (data entered in hex)"
+msgstr ""
+
+#: rregadmin/util/value_type.c:82
+msgid "String"
+msgstr ""
+
+#: rregadmin/util/value_type.c:83
+msgid "String with %ENVVAR%"
+msgstr ""
+
+#: rregadmin/util/value_type.c:84
+msgid "Binary"
+msgstr ""
+
+#: rregadmin/util/value_type.c:85
+msgid "Little Endian dword"
+msgstr ""
+
+#: rregadmin/util/value_type.c:86
+msgid "Big Endian dword"
+msgstr ""
+
+#: rregadmin/util/value_type.c:87
+msgid "Symbolic link stored in UTF16"
+msgstr ""
+
+#: rregadmin/util/value_type.c:88
+msgid "Multiple strings"
+msgstr ""
+
+#: rregadmin/util/value_type.c:89 rregadmin/util/value_type.c:90
+#: rregadmin/util/value_type.c:91
+msgid "Unknown"
+msgstr ""
+
+#: rregadmin/util/value_type.c:92
+msgid "Little Endian qword"
+msgstr ""
+
+#: rregadmin/util/value_type.c:139
+msgid "Unknown type."
+msgstr ""
+
+#: rregadmin/util/value.c:41
+msgid "Invalid value"
+msgstr ""
+
+#: rregadmin/util/value.c:497
+#, c-format
+msgid "str_to_binary failed for %s"
+msgstr ""
+
+#: rregadmin/util/value.c:571
+#, c-format
+msgid "Multi string '%s' found"
+msgstr ""
+
+#: rregadmin/util/value.c:631
+msgid "Got NULL from ustr_create_type"
+msgstr ""
+
+#: rregadmin/util/value.c:647
+msgid "Got to end of data without double nulls"
+msgstr ""
+
+#: rregadmin/util/timestamp.c:243
+msgid "unable to represent time: %#"
+msgstr ""
+
+#: rregadmin/util/ustring.c:297
+msgid "Invalid ustring passed to ustr_free"
+msgstr ""
+
+#: rregadmin/util/ustring.c:332
+msgid "OrigSize %6"
+msgstr ""
+
+#: rregadmin/util/ustring.c:716
+msgid "Passed NULL byte array to generic_convert"
+msgstr ""
+
+#: rregadmin/util/ustring.c:733
+msgid "Got invalid iconv_handle from iconv_open"
+msgstr ""
+
+#: rregadmin/util/ustring.c:764
+#, c-format
+msgid "iconv error(%d): %s"
+msgstr ""
+
+#: rregadmin/util/ustring.c:765
+#, c-format
+msgid "%d bytes left of %d"
+msgstr ""
+
+#: rregadmin/util/ustring.c:772
+#, c-format
+msgid "%d unreversible conversions done"
+msgstr ""
+
+#: rregadmin/util/ustring.c:1139
+msgid "generic_convert failed"
+msgstr ""
+
+#: rregadmin/util/check.h:139
+#, c-format
+msgid "Checking %s"
+msgstr ""
+
+#: rregadmin/util/iconv_helper.c:74
+msgid "Freeing an unreleased iconv_t"
+msgstr ""
+
+#: rregadmin/util/iconv_helper.c:154
+msgid "Got invalid iconv_t from iconv_open"
+msgstr ""
+
+#: rregadmin/util/iconv_helper.c:183
+msgid "This shouldn't happen"
+msgstr ""
+
+#: rregadmin/util/iconv_helper.c:195
+#, c-format
+msgid "Double release of iconv_t: %p"
+msgstr ""
+
+#: rregadmin/util/iconv_helper.c:205
+msgid "Didn't find iconv_t to release"
+msgstr ""
+
+#: rregadmin/util/offsets.c:109
+msgid "Tried to reduce size below 0"
+msgstr ""
+
+#: rregadmin/util/offsets.c:133
+#, c-format
+msgid "g_renew(guint8, ptr, %d) failed"
+msgstr ""
+
+#: rregadmin/util/offsets.c:224
+#, c-format
+msgid "Trying to init oh (size: %d) for invalid offset: %d"
+msgstr ""
+
+#: rregadmin/util/init.c:40
+msgid "Initializing util module"
+msgstr ""
+
+#: rregadmin/util/init.c:55
+msgid "Initializing util module from env"
+msgstr ""
+
+#: rregadmin/secdesc/secdesc_type.c:37 rregadmin/secdesc/secdesc_type.c:45
+#: rregadmin/secdesc/security_descriptor.c:84
+#: rregadmin/secdesc/security_descriptor.c:96
+msgid "AutoInherited"
+msgstr ""
+
+#: rregadmin/secdesc/secdesc_type.c:38 rregadmin/secdesc/secdesc_type.c:46
+#: rregadmin/secdesc/security_descriptor.c:82
+#: rregadmin/secdesc/security_descriptor.c:94
+msgid "AutoInheritReq"
+msgstr ""
+
+#: rregadmin/secdesc/secdesc_type.c:39 rregadmin/secdesc/secdesc_type.c:47
+msgid "Defaulted"
+msgstr ""
+
+#: rregadmin/secdesc/secdesc_type.c:40 rregadmin/secdesc/secdesc_type.c:48
+#: rregadmin/secdesc/security_descriptor.c:80
+#: rregadmin/secdesc/security_descriptor.c:92
+msgid "Protected"
+msgstr ""
+
+#: rregadmin/secdesc/secdesc_type.c:41
+msgid "Trusted"
+msgstr ""
+
+#: rregadmin/secdesc/secdesc_type.c:113
+#, c-format
+msgid "SecDescType(%s)"
+msgstr ""
+
+#: rregadmin/secdesc/aclist.c:332
+#, c-format
+msgid "ACList revs differ: %d vs %d"
+msgstr ""
+
+#: rregadmin/secdesc/aclist.c:341
+#, c-format
+msgid "ACList counts differ: %d vs %d"
+msgstr ""
+
+#: rregadmin/secdesc/aclist.c:354
+#, c-format
+msgid "ACList entries %d differ %s vs %s"
+msgstr ""
+
+#: rregadmin/secdesc/security_descriptor.c:80
+#: rregadmin/secdesc/security_descriptor.c:82
+#: rregadmin/secdesc/security_descriptor.c:84
+#: rregadmin/secdesc/security_descriptor.c:92
+#: rregadmin/secdesc/security_descriptor.c:94
+#: rregadmin/secdesc/security_descriptor.c:96 rregadmin/secdesc/acentry.c:77
+#: rregadmin/secdesc/acentry.c:80 rregadmin/secdesc/acentry.c:83
+#: rregadmin/secdesc/acentry.c:86 rregadmin/secdesc/acentry.c:89
+#: rregadmin/secdesc/acentry.c:92 rregadmin/secdesc/acentry.c:96
+#: rregadmin/secdesc/acentry.c:99 rregadmin/secdesc/acentry.c:104
+#: rregadmin/secdesc/acentry.c:106 rregadmin/secdesc/acentry.c:108
+#: rregadmin/secdesc/acentry.c:116 rregadmin/secdesc/acentry.c:119
+#: rregadmin/secdesc/acentry.c:122 rregadmin/secdesc/acentry.c:125
+#: rregadmin/secdesc/acentry.c:128 rregadmin/secdesc/acentry.c:131
+#: rregadmin/secdesc/acentry.c:134 rregadmin/secdesc/acentry.c:144
+#: rregadmin/secdesc/acentry.c:147 rregadmin/secdesc/acentry.c:150
+#: rregadmin/secdesc/acentry.c:153 rregadmin/secdesc/acentry.c:157
+#: rregadmin/secdesc/acentry.c:160 rregadmin/secdesc/acentry.c:163
+#: rregadmin/secdesc/acentry.c:166 rregadmin/secdesc/acentry.c:170
+#: rregadmin/secdesc/acentry.c:173 rregadmin/secdesc/acentry.c:176
+#: rregadmin/secdesc/acentry.c:179 rregadmin/secdesc/acentry.c:183
+#: rregadmin/secdesc/acentry.c:186 rregadmin/secdesc/acentry.c:189
+#: rregadmin/secdesc/acentry.c:192 rregadmin/secdesc/acentry.c:196
+#: rregadmin/secdesc/acentry.c:199 rregadmin/secdesc/acentry.c:202
+#: rregadmin/secdesc/acentry.c:205 rregadmin/secdesc/acentry.c:208
+#: rregadmin/secdesc/acentry.c:211 rregadmin/secdesc/acentry.c:214
+#: rregadmin/secdesc/acentry.c:217 rregadmin/secdesc/acentry.c:220
+msgid "Please add description"
+msgstr ""
+
+#: rregadmin/secdesc/security_descriptor.c:165
+#, c-format
+msgid "No : after %c code: %s"
+msgstr ""
+
+#: rregadmin/secdesc/security_descriptor.c:176
+msgid "Already got dacl section"
+msgstr ""
+
+#: rregadmin/secdesc/security_descriptor.c:185
+#, c-format
+msgid "Failed to parse dacl flags: %s"
+msgstr ""
+
+#: rregadmin/secdesc/security_descriptor.c:194
+#, c-format
+msgid "Failed to parse dacl acl: %s"
+msgstr ""
+
+#: rregadmin/secdesc/security_descriptor.c:204
+msgid "Already got sacl section"
+msgstr ""
+
+#: rregadmin/secdesc/security_descriptor.c:213
+#, c-format
+msgid "Failed to parse sacl flags: %s"
+msgstr ""
+
+#: rregadmin/secdesc/security_descriptor.c:222
+#, c-format
+msgid "Failed to parse sacl acl: %s"
+msgstr ""
+
+#: rregadmin/secdesc/security_descriptor.c:232
+msgid "Already got owner section"
+msgstr ""
+
+#: rregadmin/secdesc/security_descriptor.c:240
+#, c-format
+msgid "Failed to parse owner sid: %s"
+msgstr ""
+
+#: rregadmin/secdesc/security_descriptor.c:248
+msgid "Already got group section"
+msgstr ""
+
+#: rregadmin/secdesc/security_descriptor.c:256
+#, c-format
+msgid "Failed to parse group sid: %s"
+msgstr ""
+
+#: rregadmin/secdesc/security_descriptor.c:262
+#, c-format
+msgid "Code char %c invalid"
+msgstr ""
+
+#: rregadmin/secdesc/security_descriptor.c:307
+msgid "Unable to handle non self relative SecurityDescriptors"
+msgstr ""
+
+#: rregadmin/secdesc/security_descriptor.c:325
+msgid "Unable to parse owner sid"
+msgstr ""
+
+#: rregadmin/secdesc/security_descriptor.c:344
+msgid "Unable to parse group sid"
+msgstr ""
+
+#: rregadmin/secdesc/security_descriptor.c:373
+msgid "Unable to parse dacl aclist"
+msgstr ""
+
+#: rregadmin/secdesc/security_descriptor.c:400
+msgid "Unable to parse sacl aclist"
+msgstr ""
+
+#: rregadmin/secdesc/security_descriptor.c:702
+#, c-format
+msgid "Revs differ %d vs %d"
+msgstr ""
+
+#: rregadmin/secdesc/security_descriptor.c:713
+#, c-format
+msgid "Types differ %s(0x%04X) vs %s(0x%04X)"
+msgstr ""
+
+#: rregadmin/secdesc/security_descriptor.c:728
+msgid "Owner sids differ"
+msgstr ""
+
+#: rregadmin/secdesc/security_descriptor.c:736
+msgid "Group sids differ"
+msgstr ""
+
+#: rregadmin/secdesc/security_descriptor.c:744
+msgid "DACL lists differ"
+msgstr ""
+
+#: rregadmin/secdesc/security_descriptor.c:752
+msgid "SACL lists differ"
+msgstr ""
+
+#: rregadmin/secdesc/security_descriptor.c:809
+#, c-format
+msgid ""
+"Generated type, 0x%04X, differs from original, 0x%04X.  Using the original "
+"type."
+msgstr ""
+
+#: rregadmin/secdesc/acentry.c:76
+msgid "SystemAudit"
+msgstr ""
+
+#: rregadmin/secdesc/acentry.c:79
+msgid "SystemAlarm"
+msgstr ""
+
+#: rregadmin/secdesc/acentry.c:82
+msgid "AccessAllowedObject"
+msgstr ""
+
+#: rregadmin/secdesc/acentry.c:85
+msgid "AccessDeniedObject"
+msgstr ""
+
+#: rregadmin/secdesc/acentry.c:88
+msgid "SystemAuditObject"
+msgstr ""
+
+#: rregadmin/secdesc/acentry.c:91
+msgid "SystemAlarmObject"
+msgstr ""
+
+#: rregadmin/secdesc/acentry.c:95
+msgid "AccessAllowed"
+msgstr ""
+
+#: rregadmin/secdesc/acentry.c:98
+msgid "AccessDenied"
+msgstr ""
+
+#: rregadmin/secdesc/acentry.c:103
+msgid "UNKNOWN-0x20"
+msgstr ""
+
+#: rregadmin/secdesc/acentry.c:105
+msgid "UNKNOWN-0x23"
+msgstr ""
+
+#: rregadmin/secdesc/acentry.c:107
+msgid "UNKNOWN-0x53"
+msgstr ""
+
+#: rregadmin/secdesc/acentry.c:115
+msgid "ObjectInherit"
+msgstr ""
+
+#: rregadmin/secdesc/acentry.c:118
+msgid "ContainerInherit"
+msgstr ""
+
+#: rregadmin/secdesc/acentry.c:121
+msgid "NoPropogateInherit"
+msgstr ""
+
+#: rregadmin/secdesc/acentry.c:124
+msgid "InheritOnly"
+msgstr ""
+
+#: rregadmin/secdesc/acentry.c:127
+msgid "InheritedACE"
+msgstr ""
+
+#: rregadmin/secdesc/acentry.c:130
+msgid "SuccessfulAccess"
+msgstr ""
+
+#: rregadmin/secdesc/acentry.c:133
+msgid "FailedAccess"
+msgstr ""
+
+#: rregadmin/secdesc/acentry.c:143
+msgid "FileAll"
+msgstr ""
+
+#: rregadmin/secdesc/acentry.c:146
+msgid "FileRead"
+msgstr ""
+
+#: rregadmin/secdesc/acentry.c:149
+msgid "FileWrite"
+msgstr ""
+
+#: rregadmin/secdesc/acentry.c:152
+msgid "FileExecuted"
+msgstr ""
+
+#: rregadmin/secdesc/acentry.c:156
+msgid "RegistryAll"
+msgstr ""
+
+#: rregadmin/secdesc/acentry.c:159
+msgid "RegistryRead"
+msgstr ""
+
+#: rregadmin/secdesc/acentry.c:162
+msgid "RegistryWrite"
+msgstr ""
+
+#: rregadmin/secdesc/acentry.c:165
+msgid "RegistryExecute"
+msgstr ""
+
+#: rregadmin/secdesc/acentry.c:169
+msgid "GenericAll"
+msgstr ""
+
+#: rregadmin/secdesc/acentry.c:172
+msgid "GenericRead"
+msgstr ""
+
+#: rregadmin/secdesc/acentry.c:175
+msgid "GenericWrite"
+msgstr ""
+
+#: rregadmin/secdesc/acentry.c:178
+msgid "GenericExecute"
+msgstr ""
+
+#: rregadmin/secdesc/acentry.c:182
+msgid "StdReadControl"
+msgstr ""
+
+#: rregadmin/secdesc/acentry.c:185
+msgid "StdDelete"
+msgstr ""
+
+#: rregadmin/secdesc/acentry.c:188
+msgid "StdWriteDAC"
+msgstr ""
+
+#: rregadmin/secdesc/acentry.c:191
+msgid "StdWriteOwner"
+msgstr ""
+
+#: rregadmin/secdesc/acentry.c:195
+msgid "ADSReadProp"
+msgstr ""
+
+#: rregadmin/secdesc/acentry.c:198
+msgid "ADSWriteProp"
+msgstr ""
+
+#: rregadmin/secdesc/acentry.c:201
+msgid "ADSCreateChild"
+msgstr ""
+
+#: rregadmin/secdesc/acentry.c:204
+msgid "ADSDeleteChild"
+msgstr ""
+
+#: rregadmin/secdesc/acentry.c:207
+msgid "ADSList"
+msgstr ""
+
+#: rregadmin/secdesc/acentry.c:210
+msgid "ADSSelfWrite"
+msgstr ""
+
+#: rregadmin/secdesc/acentry.c:213
+msgid "ADSListObject"
+msgstr ""
+
+#: rregadmin/secdesc/acentry.c:216
+msgid "ADSDeleteTree"
+msgstr ""
+
+#: rregadmin/secdesc/acentry.c:219
+msgid "ADSControlAccess"
+msgstr ""
+
+#: rregadmin/secdesc/acentry.c:272
+#, c-format
+msgid "Unable to parse '%s' as type"
+msgstr ""
+
+#: rregadmin/secdesc/acentry.c:277
+msgid "Missing ; separator"
+msgstr ""
+
+#: rregadmin/secdesc/acentry.c:286
+#, c-format
+msgid "Unable to parse '%s' as flag"
+msgstr ""
+
+#: rregadmin/secdesc/acentry.c:291
+msgid "Missing ; separator after flags"
+msgstr ""
+
+#: rregadmin/secdesc/acentry.c:308
+#, c-format
+msgid "Unable to parse '%s' as access mask"
+msgstr ""
+
+#: rregadmin/secdesc/acentry.c:314
+msgid "Missing ; separator after access mask."
+msgstr ""
+
+#: rregadmin/secdesc/acentry.c:321 rregadmin/secdesc/acentry.c:328
+msgid "We don't parse guids"
+msgstr ""
+
+#: rregadmin/secdesc/acentry.c:336
+#, c-format
+msgid "Unable to parse '%s' as sid"
+msgstr ""
+
+#: rregadmin/secdesc/acentry.c:383
+msgid "Got unhandled ACEntry object type"
+msgstr ""
+
+#: rregadmin/secdesc/acentry.c:742
+#, c-format
+msgid "Unable to generate type str from %#x"
+msgstr ""
+
+#: rregadmin/secdesc/acentry.c:755
+#, c-format
+msgid "Unable to generate flags str from %#x"
+msgstr ""
+
+#: rregadmin/secdesc/privilege.c:41
+msgid "System security"
+msgstr ""
+
+#: rregadmin/secdesc/privilege.c:46
+msgid "Backup files and directories"
+msgstr ""
+
+#: rregadmin/secdesc/privilege.c:51
+msgid "Restore files and directories"
+msgstr ""
+
+#: rregadmin/secdesc/privilege.c:56
+msgid "Set the system clock"
+msgstr ""
+
+#: rregadmin/secdesc/privilege.c:61
+msgid "Shutdown the system"
+msgstr ""
+
+#: rregadmin/secdesc/privilege.c:66
+msgid "Shutdown the system remotely"
+msgstr ""
+
+#: rregadmin/secdesc/privilege.c:71
+msgid "Take ownership of files and directories"
+msgstr ""
+
+#: rregadmin/secdesc/privilege.c:76
+msgid "Debug processes"
+msgstr ""
+
+#: rregadmin/secdesc/privilege.c:81
+msgid "Modify system environment"
+msgstr ""
+
+#: rregadmin/secdesc/privilege.c:86
+msgid "Profile the system"
+msgstr ""
+
+#: rregadmin/secdesc/privilege.c:91
+msgid "Profile one process"
+msgstr ""
+
+#: rregadmin/secdesc/privilege.c:96
+msgid "Increase base priority"
+msgstr ""
+
+#: rregadmin/secdesc/privilege.c:101
+msgid "Load drivers"
+msgstr ""
+
+#: rregadmin/secdesc/privilege.c:106
+msgid "Create page files"
+msgstr ""
+
+#: rregadmin/secdesc/privilege.c:111
+msgid "Increase quota"
+msgstr ""
+
+#: rregadmin/secdesc/privilege.c:116
+msgid "Register for change notify"
+msgstr ""
+
+#: rregadmin/secdesc/privilege.c:121
+msgid "Undock devices"
+msgstr ""
+
+#: rregadmin/secdesc/privilege.c:126
+msgid "Manage system volumes"
+msgstr ""
+
+#: rregadmin/secdesc/privilege.c:131
+msgid "Impersonate users"
+msgstr ""
+
+#: rregadmin/secdesc/privilege.c:136
+msgid "Create global"
+msgstr ""
+
+#: rregadmin/secdesc/privilege.c:141
+msgid "Enable Delegation"
+msgstr ""
+
+#: rregadmin/secdesc/privilege.c:146
+msgid "Interactive logon"
+msgstr ""
+
+#: rregadmin/secdesc/privilege.c:151
+msgid "Network logon"
+msgstr ""
+
+#: rregadmin/secdesc/privilege.c:156
+msgid "Remote Interactive logon"
+msgstr ""
+
+#: rregadmin/registry/registry.c:96 rregadmin/registry/registry.c:154
+#, c-format
+msgid "registry (%p) or id(%d) invalid"
+msgstr ""
+
+#: rregadmin/registry/registry.c:238
+msgid "registry_load_win_dir failed"
+msgstr ""
+
+#: rregadmin/registry/registry.c:291
+#, c-format
+msgid "No directory %s"
+msgstr ""
+
+#: rregadmin/registry/registry.c:303
+#, c-format
+msgid "Trying to load hive %s"
+msgstr ""
+
+#: rregadmin/registry/registry.c:307
+#, c-format
+msgid "Found hive %s"
+msgstr ""
+
+#: rregadmin/registry/registry.c:311
+#, c-format
+msgid "Loading hive %s"
+msgstr ""
+
+#: rregadmin/registry/registry.c:316
+#, c-format
+msgid "Problem loading %s"
+msgstr ""
+
+#: rregadmin/registry/registry.c:490 rregadmin/registry/registry.c:551
+#, c-format
+msgid "Hive didn't check out: %s"
+msgstr ""
+
+#: rregadmin/registry/registry.c:543
+#, c-format
+msgid "Unable to read hive from %s"
+msgstr ""
+
+#: rregadmin/registry/registry.c:759
+msgid "Didn't find registry key"
+msgstr ""
+
+#: rregadmin/registry/registry.c:769
+#, c-format
+msgid "Paths equal: '%s' vs '%s'"
+msgstr ""
+
+#: rregadmin/registry/registry.c:776
+#, c-format
+msgid "Paths not equal: '%s' vs '%s'"
+msgstr ""
+
+#: rregadmin/registry/registry.c:796
+#, c-format
+msgid "Didn't find key %s"
+msgstr ""
+
+#: rregadmin/registry/registry.c:804
+#, c-format
+msgid "Couldn't get parent for key %s"
+msgstr ""
+
+#: rregadmin/registry/registry.c:814
+#, c-format
+msgid "key_cell_delete_subkey_str failed for key %s"
+msgstr ""
+
+#: rregadmin/registry/registry.c:864
+#, c-format
+msgid "trying to add already existing value %s"
+msgstr ""
+
+#: rregadmin/registry/registry.c:915
+#, c-format
+msgid "Looking for key with path %s"
+msgstr ""
+
+#: rregadmin/registry/registry.c:925
+#, c-format
+msgid "Looking at key id %d: %s"
+msgstr ""
+
+#: rregadmin/registry/registry.c:950
+#, c-format
+msgid "No key at %d"
+msgstr ""
+
+#: rregadmin/registry/registry.c:977
+#, c-format
+msgid "Didn't find hive for path %s"
+msgstr ""
+
+#: rregadmin/registry/regkeygen.c:110
+#, c-format
+msgid "Couldn't create RegistryKey for hive: %s (mount point = %s; type = %d)"
+msgstr ""
+
+#: rregadmin/registry/regkeygen.c:113
+msgid "(NULL)"
+msgstr ""
+
+#: rregadmin/registry/regkeygen.c:134
+msgid "Couldn't find link location for CurrentControlSet"
+msgstr ""
+
+#: rregadmin/registry/hive_info.c:67
+#, c-format
+msgid "Trying to read hive %s"
+msgstr ""
+
+#: rregadmin/registry/hive_info.c:202
+#, c-format
+msgid "Checking hive name %s of %s"
+msgstr ""
+
+#: rregadmin/registry/hive_info.c:245
+#, c-format
+msgid "Checking root key of file %s"
+msgstr ""
+
+#: rregadmin/registry/hive_info.c:274
+#, c-format
+msgid "Checking filename of hive %s"
+msgstr ""
+
+#: rregadmin/registry/init.c:42
+msgid "Initializing registry module"
+msgstr ""
+
+#: rregadmin/registry/init.c:57
+msgid "Initializing registry module from env"
+msgstr ""
+
+#: rregadmin/diff/key_cell.c:140
+#, c-format
+msgid "Comparing subvalues at %s"
+msgstr ""
+
+#: rregadmin/diff/key_cell.c:169
+#, c-format
+msgid "Comparing subkeys at %s"
+msgstr ""
+
+#: rregadmin/diff/key_cell.c:183
+#, c-format
+msgid "from subkey count = %d ; to subkey count = %d"
+msgstr ""
+
+#: rregadmin/diff/key_cell.c:273
+#, c-format
+msgid "Comparing keys at %s"
+msgstr ""
+
+#: rregadmin/diff/hive.c:104
+#, c-format
+msgid "Comparing hives at path %s ('%s'/'%s' and '%s'/'%s')"
+msgstr ""
+
+#: rregadmin/diff/registry.c:49
+#, c-format
+msgid "Comparing hives with path %s"
+msgstr ""
+
+#: rregadmin/diff/value_key_cell.c:72
+#, c-format
+msgid "Comparing value key names: '%s' vs '%s'"
+msgstr ""
+
+#: rregadmin/diff/diff_info.c:163
+#, c-format
+msgid "ADD_KEY(%s)"
+msgstr ""
+
+#: rregadmin/diff/diff_info.c:168
+#, c-format
+msgid "DELETE_KEY(%s)"
+msgstr ""
+
+#: rregadmin/diff/diff_info.c:177
+#, c-format
+msgid "ADD_VALUE(%s, %s, %s, %s)"
+msgstr ""
+
+#: rregadmin/diff/diff_info.c:190
+#, c-format
+msgid "DELETE_VALUE(%s, %s, %s, %s)"
+msgstr ""
+
+#: rregadmin/diff/diff_info.c:204
+#, c-format
+msgid "CHANGE_VALUE(%s, %s, %s, %s, %s, %s)"
+msgstr ""
+
+#: rregadmin/diff/diff_info.c:215
+msgid "HIVE_VERSION_CHANGE()"
+msgstr ""
+
+#: rregadmin/diff/diff_info.c:219
+#, c-format
+msgid "HIVE_NAME_CHANGE(%s)"
+msgstr ""
+
+#: rregadmin/diff/diff_info.c:224
+msgid "Unknown action type"
+msgstr ""
+
+#: rregadmin/diff/diff_info.c:319
+#, c-format
+msgid "Adding action: %s"
+msgstr ""
+
+#: rregadmin/hive/hcheck_gc_pass.c:46 rregadmin/hive/key_cell.c:1083
+#: rregadmin/hive/key_list_cell.c:1180 rregadmin/hive/value_key_cell.c:850
+#: rregadmin/hive/security_descriptor_cell.c:381
+msgid "NULL key cell"
+msgstr ""
+
+#: rregadmin/hive/hcheck_gc_pass.c:144
+#, c-format
+msgid "Cell %#010x is linked, but unallocated"
+msgstr ""
+
+#: rregadmin/hive/hcheck_gc_pass.c:157
+#, c-format
+msgid "Cell %#010x is allocated, but unlinked"
+msgstr ""
+
+#: rregadmin/hive/hive_check.c:64
+#, c-format
+msgid "Start   : Hive %s"
+msgstr ""
+
+#: rregadmin/hive/hive_check.c:69
+#, c-format
+msgid "Start   : Pass: %s"
+msgstr ""
+
+#: rregadmin/hive/hive_check.c:72
+#, c-format
+msgid "%s : Pass: %s"
+msgstr ""
+
+#: rregadmin/hive/hive_check.c:73 rregadmin/hive/hive_check.c:83
+msgid "Success"
+msgstr ""
+
+#: rregadmin/hive/hive_check.c:73 rregadmin/hive/hive_check.c:83
+msgid "FAILURE"
+msgstr ""
+
+#: rregadmin/hive/hive_check.c:82
+#, c-format
+msgid ""
+"%s: Hive %s\n"
+"\n"
+msgstr ""
+
+#: rregadmin/hive/key_cell.c:249 rregadmin/hive/key_list_cell.c:352
+#, c-format
+msgid "Unallocating (%#010x): Recursive=%s"
+msgstr ""
+
+#: rregadmin/hive/key_cell.c:251 rregadmin/hive/key_list_cell.c:354
+#: rregadmin/hive/value_list_cell.c:102
+msgid "true"
+msgstr ""
+
+#: rregadmin/hive/key_cell.c:251 rregadmin/hive/key_list_cell.c:354
+#: rregadmin/hive/value_list_cell.c:102
+msgid "false"
+msgstr ""
+
+#: rregadmin/hive/key_cell.c:310
+msgid "id"
+msgstr ""
+
+#: rregadmin/hive/key_cell.c:366
+msgid "Couldn't convert key cell's name"
+msgstr ""
+
+#: rregadmin/hive/key_cell.c:614
+msgid "Bad return from key_list_cell_delete_entry_str"
+msgstr ""
+
+#: rregadmin/hive/key_cell.c:743
+msgid "value number outside of range."
+msgstr ""
+
+#: rregadmin/hive/key_cell.c:790
+msgid "got null name"
+msgstr ""
+
+#: rregadmin/hive/key_cell.c:882 rregadmin/hive/key_cell.c:970
+#, c-format
+msgid "Key %s:\n"
+msgstr ""
+
+#: rregadmin/hive/key_cell.c:885 rregadmin/hive/key_cell.c:973
+#, c-format
+msgid "  Name %s:\n"
+msgstr ""
+
+#: rregadmin/hive/key_cell.c:891 rregadmin/hive/key_cell.c:979
+#, c-format
+msgid "  Classname: %s\n"
+msgstr ""
+
+#: rregadmin/hive/key_cell.c:899
+msgid "  Values:\n"
+msgstr ""
+
+#: rregadmin/hive/key_cell.c:913
+#, c-format
+msgid "    \"%s\" (%s)=> <No Value Generated>\n"
+msgstr ""
+
+#: rregadmin/hive/key_cell.c:920
+#, c-format
+msgid "    \"%s\" (%s)=> <Not Displayed>\n"
+msgstr ""
+
+#: rregadmin/hive/key_cell.c:925
+#, c-format
+msgid "    \"%s\" (%s)=> %s\n"
+msgstr ""
+
+#: rregadmin/hive/key_cell.c:940
+msgid "  Subkeys:\n"
+msgstr ""
+
+#: rregadmin/hive/key_cell.c:946
+#, c-format
+msgid "    %s\n"
+msgstr ""
+
+#: rregadmin/hive/key_cell.c:957
+#, c-format
+msgid "\"%s\"), "
+msgstr ""
+
+#: rregadmin/hive/key_cell.c:987
+msgid "  Values: [ "
+msgstr ""
+
+#: rregadmin/hive/key_cell.c:996 rregadmin/hive/key_cell.c:1011
+msgid "  ]\n"
+msgstr ""
+
+#: rregadmin/hive/key_cell.c:1002
+msgid "  Subkeys: [ "
+msgstr ""
+
+#: rregadmin/hive/key_cell.c:1089
+msgid "Invalid key cell"
+msgstr ""
+
+#: rregadmin/hive/key_cell.c:1094 rregadmin/hive/key_list_cell.c:1202
+msgid "for a valid type"
+msgstr ""
+
+#: rregadmin/hive/key_cell.c:1100
+msgid "type"
+msgstr ""
+
+#: rregadmin/hive/key_cell.c:1108
+msgid "for no parent on root key"
+msgstr ""
+
+#: rregadmin/hive/key_cell.c:1113
+msgid "root key has non 0 parent offset"
+msgstr ""
+
+#: rregadmin/hive/key_cell.c:1119
+msgid "for valid name size"
+msgstr ""
+
+#: rregadmin/hive/key_cell.c:1124
+msgid "name length"
+msgstr ""
+
+#: rregadmin/hive/key_cell.c:1128
+msgid "for valid cell size"
+msgstr ""
+
+#: rregadmin/hive/key_cell.c:1135
+msgid "Mismatch Cell / KeyCell length"
+msgstr ""
+
+#: rregadmin/hive/key_cell.c:1139
+msgid "for subkey offset with no subkeys"
+msgstr ""
+
+#: rregadmin/hive/key_cell.c:1146
+msgid "Subkey count / Subkey list mismatch"
+msgstr ""
+
+#: rregadmin/hive/key_cell.c:1151
+msgid "for classname offset and zero length classname"
+msgstr ""
+
+#: rregadmin/hive/key_cell.c:1160
+msgid "Classname / Classname offset mismatch"
+msgstr ""
+
+#: rregadmin/hive/key_cell.c:1164
+msgid "for zero values and value offset"
+msgstr ""
+
+#: rregadmin/hive/key_cell.c:1174
+#, c-format
+msgid "no_values (%d) and ofs_vallist (%#010x) don't match"
+msgstr ""
+
+#: rregadmin/hive/key_cell.c:1180
+msgid "for a valid value list key offset"
+msgstr ""
+
+#: rregadmin/hive/key_cell.c:1185
+msgid "invalid vallist offset"
+msgstr ""
+
+#: rregadmin/hive/key_cell.c:1189
+msgid "for a valid classname offset"
+msgstr ""
+
+#: rregadmin/hive/key_cell.c:1194
+msgid "invalid classname offset"
+msgstr ""
+
+#: rregadmin/hive/key_cell.c:1198
+msgid "for a valid key list cell offset"
+msgstr ""
+
+#: rregadmin/hive/key_cell.c:1203
+msgid "invalid subkey list offset"
+msgstr ""
+
+#: rregadmin/hive/key_cell.c:1207
+msgid "for a valid parent offset"
+msgstr ""
+
+#: rregadmin/hive/key_cell.c:1213
+msgid "invalid parent offset"
+msgstr ""
+
+#: rregadmin/hive/key_cell.c:1217
+msgid "valid security descriptor cell offset"
+msgstr ""
+
+#: rregadmin/hive/key_cell.c:1221
+msgid "valid sk offset"
+msgstr ""
+
+#: rregadmin/hive/key_cell.c:1226
+msgid "correct key ordering"
+msgstr ""
+
+#: rregadmin/hive/key_cell.c:1238
+msgid "Key cells not in good order"
+msgstr ""
+
+#: rregadmin/hive/key_cell.c:1252
+msgid "correct value ordering"
+msgstr ""
+
+#: rregadmin/hive/key_cell.c:1271
+msgid "ValueKey cells not in alphabetical order"
+msgstr ""
+
+#: rregadmin/hive/key_cell.c:1283
+msgid "that no subkeys or values have same name"
+msgstr ""
+
+#: rregadmin/hive/key_cell.c:1302
+#, c-format
+msgid "sub key and value with same name: %s"
+msgstr ""
+
+#: rregadmin/hive/key_cell.c:1309
+#, c-format
+msgid "value and sub key \"\" value: %s"
+msgstr ""
+
+#: rregadmin/hive/util.c:54
+#, c-format
+msgid "Looking for subkey %s"
+msgstr ""
+
+#: rregadmin/hive/util.c:61
+#, c-format
+msgid "Creating subkey %s"
+msgstr ""
+
+#: rregadmin/hive/util.c:71
+#, c-format
+msgid "Didn't find subkey %s"
+msgstr ""
+
+#: rregadmin/hive/cell.c:110
+msgid "Hive is in no-allocation mode, can't allocate blocks."
+msgstr ""
+
+#: rregadmin/hive/cell.c:136
+#, c-format
+msgid "failed to alloc %d bytes."
+msgstr ""
+
+#: rregadmin/hive/cell.c:156
+msgid "Hive is in no-allocation mode, can't free blocks."
+msgstr ""
+
+#: rregadmin/hive/cell.c:634
+#, c-format
+msgid "Bad end offset for end of bin from: %d and %d"
+msgstr ""
+
+#: rregadmin/hive/cell.c:645
+msgid "valid size"
+msgstr ""
+
+#: rregadmin/hive/cell.c:649
+#, c-format
+msgid "invalid cell size: %d"
+msgstr ""
+
+#: rregadmin/hive/cell.c:654
+msgid "last cell correct"
+msgstr ""
+
+#: rregadmin/hive/cell.c:658
+msgid "last cell incorrect"
+msgstr ""
+
+#: rregadmin/hive/cell.c:662
+msgid "cell stays within bin"
+msgstr ""
+
+#: rregadmin/hive/cell.c:670
+#, c-format
+msgid "cell extends past end of bin: Bin(%d) vs Cell(%d) => %d"
+msgstr ""
+
+#: rregadmin/hive/hive.c:251
+#, c-format
+msgid "open(%s) failed, FILE NOT WRITTEN: %s"
+msgstr ""
+
+#: rregadmin/hive/hive.c:261
+#, c-format
+msgid "write of %s failed: %s"
+msgstr ""
+
+#: rregadmin/hive/hive.c:330
+#, c-format
+msgid "Couldn't find hive file: %s"
+msgstr ""
+
+#: rregadmin/hive/hive.c:340
+#, c-format
+msgid "Couldn't open hive file %s"
+msgstr ""
+
+#: rregadmin/hive/hive.c:347
+#, c-format
+msgid "Couldn't fstat hive file %s"
+msgstr ""
+
+#: rregadmin/hive/hive.c:356
+#, c-format
+msgid "Didn't read as many bytes (%d) as I wanted to: %d"
+msgstr ""
+
+#: rregadmin/hive/hive.c:365
+#, c-format
+msgid "failed opening %s"
+msgstr ""
+
+#: rregadmin/hive/hive.c:371
+#, c-format
+msgid "Loaded hive: %s"
+msgstr ""
+
+#: rregadmin/hive/hive.c:398
+msgid "couldn't allocate hive structure"
+msgstr ""
+
+#: rregadmin/hive/hive.c:416
+msgid "hive is invalid"
+msgstr ""
+
+#: rregadmin/hive/hive.c:572
+#, c-format
+msgid "incorrect magic number: %#010x (should be %#010x)"
+msgstr ""
+
+#: rregadmin/hive/hive.c:580
+#, c-format
+msgid "unknown major version number: %d"
+msgstr ""
+
+#: rregadmin/hive/hive.c:588
+#, c-format
+msgid "unknown major/minor combo: %d/%d"
+msgstr ""
+
+#: rregadmin/hive/hive.c:837
+#, c-format
+msgid "Looking for free cell in Bin %#010x"
+msgstr ""
+
+#: rregadmin/hive/hive.c:848
+msgid "No free cells large enough existing."
+msgstr ""
+
+#: rregadmin/hive/hive.c:879
+#, c-format
+msgid "Failed to init bin at %#010x"
+msgstr ""
+
+#: rregadmin/hive/hive.c:891
+msgid "Couldn't get first cell from new bin"
+msgstr ""
+
+#: rregadmin/hive/hive.c:965 rregadmin/hive/hive.c:992
+msgid "Passed null Cell"
+msgstr ""
+
+#: rregadmin/hive/hive.c:981
+msgid "Attempt to register the same cell twice."
+msgstr ""
+
+#: rregadmin/hive/hive.c:1132
+msgid "Hive not valid"
+msgstr ""
+
+#: rregadmin/hive/hive.c:1138
+msgid "checksum"
+msgstr ""
+
+#: rregadmin/hive/hive.c:1144
+#, c-format
+msgid "incorrect checksum (Correct: %d ; Existing: %d)"
+msgstr ""
+
+#: rregadmin/hive/hive.c:1150
+msgid "for 0s in unused part of header"
+msgstr ""
+
+#: rregadmin/hive/hive.c:1159
+#, c-format
+msgid "Byte %d in header not 0"
+msgstr ""
+
+#: rregadmin/hive/hive.c:1164
+msgid "hive size validity"
+msgstr ""
+
+#: rregadmin/hive/hive.c:1171
+#, c-format
+msgid "hive size is not a multiple of %#06x or equal to lastblock: %d"
+msgstr ""
+
+#: rregadmin/hive/hive.c:1177
+msgid "that bins + trailer == hive size"
+msgstr ""
+
+#: rregadmin/hive/hive.c:1181
+#, c-format
+msgid "bins + trailer (%d) != hive size (%d)"
+msgstr ""
+
+#: rregadmin/hive/hive.c:1187
+msgid "equivalent of last_bin and lastblock"
+msgstr ""
+
+#: rregadmin/hive/hive.c:1194
+#, c-format
+msgid "lastblock (%#010x) != end of last bin (%#010x)"
+msgstr ""
+
+#: rregadmin/hive/hive.c:1201
+msgid "for empty trailer"
+msgstr ""
+
+#: rregadmin/hive/hive.c:1211
+#, c-format
+msgid "byte %d not 0 (%#04x)"
+msgstr ""
+
+#: rregadmin/hive/key_list_cell.c:302
+msgid "hb == NULL"
+msgstr ""
+
+#: rregadmin/hive/key_list_cell.c:325
+msgid "Asked to alloc copy into same or smaller size"
+msgstr ""
+
+#: rregadmin/hive/key_list_cell.c:335
+msgid "Unable to allocate new copy of KeyListCell"
+msgstr ""
+
+#: rregadmin/hive/key_list_cell.c:396
+#, c-format
+msgid "KeyListCell had invalid type %d (%s)"
+msgstr ""
+
+#: rregadmin/hive/key_list_cell.c:491 rregadmin/hive/key_list_cell.c:525
+#: rregadmin/hive/key_list_cell.c:546 rregadmin/hive/key_list_cell.c:635
+#: rregadmin/hive/key_list_cell.c:702 rregadmin/hive/key_list_cell.c:736
+#, c-format
+msgid "Unknown key list type: %#06x"
+msgstr ""
+
+#: rregadmin/hive/key_list_cell.c:505
+#, c-format
+msgid "Invalid offset into KeyListCell: %d (size=%d)"
+msgstr ""
+
+#: rregadmin/hive/key_list_cell.c:543 rregadmin/hive/key_list_cell.c:732
+msgid "This function inappropriate for RI key lists"
+msgstr ""
+
+#: rregadmin/hive/key_list_cell.c:655
+msgid "Bad entry number: -1"
+msgstr ""
+
+#: rregadmin/hive/key_list_cell.c:675
+#, c-format
+msgid "Couldn't find lx entry in ri for %d"
+msgstr ""
+
+#: rregadmin/hive/key_list_cell.c:690
+#, c-format
+msgid "Failed to drop entry %d from sublist"
+msgstr ""
+
+#: rregadmin/hive/key_list_cell.c:772 rregadmin/hive/key_list_cell.c:778
+#, c-format
+msgid "Unknown hive version: %d.%d.%d.%d"
+msgstr ""
+
+#: rregadmin/hive/key_list_cell.c:830
+msgid "Couldn't find lx key list cell from ri key list cell"
+msgstr ""
+
+#: rregadmin/hive/key_list_cell.c:871
+#, c-format
+msgid "Got NULL for dest (%p) or src (%p) to copy"
+msgstr ""
+
+#: rregadmin/hive/key_list_cell.c:1194
+msgid "Invalid key list cell"
+msgstr ""
+
+#: rregadmin/hive/key_list_cell.c:1211
+msgid "invalid type for v 1.3"
+msgstr ""
+
+#: rregadmin/hive/key_list_cell.c:1220
+msgid "invalid type for v 1.5"
+msgstr ""
+
+#: rregadmin/hive/key_list_cell.c:1227 rregadmin/hive/key_list_cell.c:1235
+#, c-format
+msgid "don't know proper type for v %d.%d"
+msgstr ""
+
+#: rregadmin/hive/key_list_cell.c:1240
+msgid "for size capacity matchup"
+msgstr ""
+
+#: rregadmin/hive/key_list_cell.c:1244
+#, c-format
+msgid "KeyListCell capacities mismatch (%d vs %d)"
+msgstr ""
+
+#: rregadmin/hive/key_list_cell.c:1251
+msgid "for key cell / key list cell count equality"
+msgstr ""
+
+#: rregadmin/hive/key_list_cell.c:1257
+#, c-format
+msgid "counts wrong: %d (key cell) vs %d (key list cell)"
+msgstr ""
+
+#: rregadmin/hive/key_list_cell.c:1266
+#, c-format
+msgid "for correct ordering among %d keys"
+msgstr ""
+
+#: rregadmin/hive/key_list_cell.c:1281
+#, c-format
+msgid "KeyCell ordering messed up.  %s before %s"
+msgstr ""
+
+#: rregadmin/hive/value_key_cell.c:184
+#: rregadmin/hive/security_descriptor_cell.c:219
+#: rregadmin/hive/value_cell.c:139
+#, c-format
+msgid "Unallocating (%#010x)"
+msgstr ""
+
+#: rregadmin/hive/value_key_cell.c:202
+#, c-format
+msgid "Unexpected id in cell (%p) supposed to be value: %#06x"
+msgstr ""
+
+#: rregadmin/hive/value_key_cell.c:231
+msgid "ValueKeyCell is NULL"
+msgstr ""
+
+#: rregadmin/hive/value_key_cell.c:238
+#, c-format
+msgid "Invalid id %d"
+msgstr ""
+
+#: rregadmin/hive/value_key_cell.c:395
+msgid "Dropping data len by 1 for SZ"
+msgstr ""
+
+#: rregadmin/hive/value_key_cell.c:418
+msgid "Dropping data len by 1 for EXPAND_SZ"
+msgstr ""
+
+#: rregadmin/hive/value_key_cell.c:442
+msgid "Dropping data len by 1 for MULTI_SZ"
+msgstr ""
+
+#: rregadmin/hive/value_key_cell.c:479
+#, c-format
+msgid "Invalid value type: %d.  Returning a none value."
+msgstr ""
+
+#: rregadmin/hive/value_key_cell.c:519 rregadmin/hive/value_key_cell.c:832
+#, c-format
+msgid "ValueCell length less than ValueKeyCell length: %d vs %d"
+msgstr ""
+
+#: rregadmin/hive/value_key_cell.c:598
+#, c-format
+msgid "I don't know how to deal with type %d"
+msgstr ""
+
+#: rregadmin/hive/value_key_cell.c:646
+#, c-format
+msgid "Value %s\n"
+msgstr ""
+
+#: rregadmin/hive/value_key_cell.c:649
+#, c-format
+msgid "  Name: '%s'\n"
+msgstr ""
+
+#: rregadmin/hive/value_key_cell.c:652
+#, c-format
+msgid "  Type: %s\n"
+msgstr ""
+
+#: rregadmin/hive/value_key_cell.c:653
+#, c-format
+msgid "  Flag: %#06x\n"
+msgstr ""
+
+#: rregadmin/hive/value_key_cell.c:655
+#, c-format
+msgid "  Data Size (in value cell  ): %d\n"
+msgstr ""
+
+#: rregadmin/hive/value_key_cell.c:657
+#, c-format
+msgid "  Data Size (in valuekeycell): %d\n"
+msgstr ""
+
+#: rregadmin/hive/value_key_cell.c:661
+msgid "Data: Too large to print\n"
+msgstr ""
+
+#: rregadmin/hive/value_key_cell.c:666
+#, c-format
+msgid ""
+"  Data:\n"
+"%s\n"
+msgstr ""
+
+#: rregadmin/hive/value_key_cell.c:743
+msgid "invalid value key cell"
+msgstr ""
+
+#: rregadmin/hive/value_key_cell.c:749
+msgid "for valid dword length"
+msgstr ""
+
+#: rregadmin/hive/value_key_cell.c:756
+msgid "dword type without inline length"
+msgstr ""
+
+#: rregadmin/hive/value_key_cell.c:761
+msgid "for valid string offset"
+msgstr ""
+
+#: rregadmin/hive/value_key_cell.c:772 rregadmin/hive/value_key_cell.c:787
+#: rregadmin/hive/value_key_cell.c:798
+msgid "Invalid offset"
+msgstr ""
+
+#: rregadmin/hive/value_key_cell.c:777 rregadmin/hive/bin.c:544
+msgid "for valid offsets"
+msgstr ""
+
+#: rregadmin/hive/value_key_cell.c:792
+msgid "for qword validity"
+msgstr ""
+
+#: rregadmin/hive/value_key_cell.c:804
+msgid "Invalid data length for qword"
+msgstr ""
+
+#: rregadmin/hive/value_key_cell.c:809
+msgid "for invalid data length difference"
+msgstr ""
+
+#: rregadmin/hive/value_key_cell.c:826
+msgid "Special 'db' value found."
+msgstr ""
+
+#: rregadmin/hive/security_descriptor_cell.c:358
+#, c-format
+msgid "SecurityDescriptorCell: %p not linked into list"
+msgstr ""
+
+#: rregadmin/hive/security_descriptor_cell.c:409
+#, c-format
+msgid "SecurityDescriptorCell %#010x count off: %d (should be %d)"
+msgstr ""
+
+#: rregadmin/hive/security_descriptor_cell.c:434
+msgid "correct use counts"
+msgstr ""
+
+#: rregadmin/hive/security_descriptor_cell.c:452
+msgid "duplicate secdescs"
+msgstr ""
+
+#: rregadmin/hive/security_descriptor_cell.c:468
+#, c-format
+msgid "SecurityDescriptorCells %#010x and %#010x have equal secdescs"
+msgstr ""
+
+#: rregadmin/hive/bin.c:124
+msgid "Bin failed check"
+msgstr ""
+
+#: rregadmin/hive/bin.c:181
+msgid "Couldn't set next offset in previous bin"
+msgstr ""
+
+#: rregadmin/hive/bin.c:202
+msgid "Couldn't initialize cell"
+msgstr ""
+
+#: rregadmin/hive/bin.c:208
+msgid "Bin isn't valid"
+msgstr ""
+
+#: rregadmin/hive/bin.c:269
+msgid "Checking a NULL bin"
+msgstr ""
+
+#: rregadmin/hive/bin.c:275
+msgid "Invalid id"
+msgstr ""
+
+#: rregadmin/hive/bin.c:525
+msgid "for a valid size"
+msgstr ""
+
+#: rregadmin/hive/bin.c:529
+#, c-format
+msgid "bin size not a multiple of %d"
+msgstr ""
+
+#: rregadmin/hive/bin.c:534
+msgid "for valid end offset"
+msgstr ""
+
+#: rregadmin/hive/bin.c:540
+msgid "generated end offset bad"
+msgstr ""
+
+#: rregadmin/hive/bin.c:548
+msgid "offsets don't match"
+msgstr ""
+
+#: rregadmin/hive/bin.c:555
+msgid "total bin size"
+msgstr ""
+
+#: rregadmin/hive/bin.c:559
+msgid "hive data size and total bin size don't match"
+msgstr ""
+
+#: rregadmin/hive/bin.c:563
+msgid "last bin same"
+msgstr ""
+
+#: rregadmin/hive/bin.c:566
+msgid "last bins not the same"
+msgstr ""
+
+#: rregadmin/hive/bin.c:574
+msgid "no bins in trailer"
+msgstr ""
+
+#: rregadmin/hive/bin.c:579
+msgid "found bin tag in trailer"
+msgstr ""
+
+#: rregadmin/hive/value_list_cell.c:100
+#, c-format
+msgid "Unallocating (%#010x): Items=%d, Recursive=%s"
+msgstr ""
+
+#: rregadmin/hive/init.c:41
+msgid "Initializing hive module"
+msgstr ""
+
+#: rregadmin/hive/init.c:55
+msgid "Initializing hive module from env"
+msgstr ""

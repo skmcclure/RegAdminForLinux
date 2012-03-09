@@ -1,0 +1,59 @@
+
+* RRegAdmin
+
+Racemi Windown Registry Modification Tools
+
+* Introduction
+
+RRegAdmin is a fork of hivetools which was a fork of chntpw.
+
+The main aim was to provide complete add/delete/modify access to hives
+individually and to hives as a group (registries).
+
+* Directory Layout
+
+RRegAdmin is separated into several directories.  Their purposes are as
+follows:
+
+*** rregadmin/util
+
+Utility objects and functions.
+
+*** rregadmin/hive
+
+Low-level hive access.  The contents of this directory are responsible
+for loading/unloading hives and providing windows-like read/write
+functions (RegSetValueEx, RegDeleteKey, etc).
+
+*** rregadmin/registry
+
+Simple registry api.
+
+*** rregadmin/diff
+
+Diff utilities.
+
+*** rregadmin/cli
+
+Simple command line interface to registries.
+
+*** example
+
+Example programs.
+
+*** bin
+
+Utility programs.
+
+
+* Documentation
+
+[[http://www.microsoft.com/technet/archive/winntas/tips/winntmag/inreg.mspx]]
+[[http://support.microsoft.com/kb/256986/]]
+[[http://www.windowsitpro.com/Articles/Index.cfm?IssueID=19&ArticleID=122]]
+[[http://msdn.microsoft.com/library/default.asp?url=/library/en-us/sysinfo/base/registry_functions.asp]]
+[[../cifs6.txt]]
+
+* Future Goals
+
+ * See [[todo.muse][TODO]] file.

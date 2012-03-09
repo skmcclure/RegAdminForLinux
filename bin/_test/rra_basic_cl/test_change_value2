@@ -1,0 +1,56 @@
+#! /usr/bin/env python
+
+from ef_utils import *
+
+index = 0
+
+def my_test(self, d, test_dir, **kwds):
+    global index
+
+    if index % 3 == 0:
+        val = "This is a long string for fun."
+        expected_val = "%s\0\0" % val
+        ef_debug_out("Changing value %s(MULTI_SZ)='%s' to %s" % (
+            d[1], val, d[0]))
+        self.assertGoodProg(CL_PROG, test_dir, "has_value", d[0], d[1])
+        self.assertGoodProg(CL_PROG, test_dir, "add_value", d[0], d[1],
+                            "MULTI_SZ", val)
+        self.assertGoodProg(CL_PROG, test_dir, "has_value", d[0], d[1])
+        new_value = self.get_prog_out(CL_PROG, test_dir, "cat_value", d[0],
+                                      d[1])
+        self.assertEqual(expected_val, new_value)
+
+    elif index % 3 == 1:
+        val = "Why oh why do you hate me so much?"
+        ef_debug_out("Changing value %s(EXPAND_SZ)='%s' to %s" % (
+            d[1], val, d[0]))
+        self.assertGoodProg(CL_PROG, test_dir, "has_value", d[0], d[1])
+        self.assertGoodProg(CL_PROG, test_dir, "add_value", d[0], d[1],
+                            "EXPAND_SZ", val)
+        self.assertGoodProg(CL_PROG, test_dir, "has_value", d[0], d[1])
+        new_value = self.get_prog_out(CL_PROG, test_dir, "cat_value", d[0],
+                                      d[1])
+        self.assertEqual("%s\0" % val, new_value)
+
+    elif index % 3 == 2:
+        val = "10"
+        expected_val = "\n\x00\x00\x00"
+        ef_debug_out("Changing value %s(DWORD)='%s' to %s" % (d[1], val, d[0]))
+        self.assertGoodProg(CL_PROG, test_dir, "has_value", d[0], d[1])
+        self.assertGoodProg(CL_PROG, test_dir, "add_value", d[0], d[1],
+                            "DWORD", val)
+        self.assertGoodProg(CL_PROG, test_dir, "has_value", d[0], d[1])
+        new_value = self.get_prog_out(CL_PROG, test_dir, "cat_value", d[0],
+                                      d[1])
+        self.assertEqual(expected_val, new_value)
+
+    index += 1
+    return
+
+class ChangeValueTest2(EfTest):
+    pass
+
+add_value_example_tests(my_test, ChangeValueTest2)
+
+if __name__ == '__main__':
+    unittest.main()

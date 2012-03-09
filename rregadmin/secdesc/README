@@ -1,0 +1,10 @@
+This code was snitched from the Samba project.
+
+For information on security descriptors:
+http://technet2.microsoft.com/WindowsServer/en/library/9c7bc921-2517-4e7a-ba39-d37c8b8202e31033.mspx
+
+For information on SDDL:
+http://msdn2.microsoft.com/en-us/library/aa379570.aspx
+ACE SDDL: http://msdn2.microsoft.com/en-us/library/aa374928(d=printer).aspx
+SID SDDL: http://msdn2.microsoft.com/en-us/library/aa379602(d=printer).aspx
+http://www.washington.edu/computing/support/windows/UWdomains/SDDL.html

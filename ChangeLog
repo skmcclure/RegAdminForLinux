@@ -1,0 +1,145 @@
+2008-04-24  James Lewismoss  <dres@lewismoss.org>
+
+	* rregadmin/hive/key_cell.c (key_cell_add_subkey): make sure to up
+	the secdesc count when reusing parent secdesc.
+
+2008-04-04  James Lewismoss  <dres@lewismoss.org>
+
+	* rregadmin/hive/security_descriptor_cell.c
+	(security_descriptor_cell_unalloc): Fix links in cell when
+	unallocating.
+
+2008-03-18  James Lewismoss  <dres@lewismoss.org>
+
+	* rregadmin/util/malloc.h: Add non zeroing macros when
+	RRA_INCLUDE_DEBUG_CODE isn't set.
+
+2008-03-17  James Lewismoss  <dres@lewismoss.org>
+
+	* test/lib/good_stuff.cpp (RRegadmin): Use glib's rand number
+	generator.
+
+2008-03-14  James Lewismoss  <dres@lewismoss.org>
+
+	* rregadmin/registry/hive_info.c (guess_hive_type): Fix file type
+	detection code by just lowercasing everything before compare.
+
+2008-03-13  James Lewismoss  <dres@lewismoss.org>
+
+	* rregadmin/util/regstrcmp.c (regstrncmp): use ustr_index_unsafe.
+
+	* rregadmin/util/ustring.c (ustr_index_unsafe): Add new func
+	that's faster, but less safe.
+
+	* bin/_test/t_script: Disable since file name cases are random now.
+
+2008-03-12  James Lewismoss  <dres@lewismoss.org>
+
+	* rregadmin/secdesc/security_descriptor.c
+	(secdesc_write_to_binary): Add warning when generated type and
+	original type differ and use the original type.  Trying to pass on
+	the brokenness.
+	(secdesc_write_to_binary): Add SELF_RELATIVE flag to type.
+	(secdesc_get_type): Add SELF_RELATIVE flag.
+	(secdesc_new_parse_binary): Remove extra type codes when dacl/sacl
+	doesn't exist.
+
+	* rregadmin/hive/security_descriptor_cell.c
+	(security_descriptor_cell_get_xml_output): New func.
+
+2008-03-10  James Lewismoss  <dres@lewismoss.org>
+
+	* rregadmin/util/ustring.h: Include include_colon arg to hexdump
+	functions.
+
+	* test/lib/example_registry.h (RRegAdmin): Create class to do hive
+	copying.
+
+2008-03-06  James Lewismoss  <dres@lewismoss.org>
+
+	* rregadmin/util/fs.c (rra_mkdtemp): Add new func.
+
+2008-01-15  James Lewismoss  <dres@lewismoss.org>
+
+	* Fix length bug.  Something funny going on.  If the length
+	doesn't match then it seems to be a pointer into some db.
+
+2007-10-15  James Lewismoss  <dres@lewismoss.org>
+
+	* rregadmin/cli/basic.c (rra_cli_exit): Add exit command.
+
+2007-03-27  James LewisMoss  <dres@lewismoss.org>
+
+	* rregadmin/hive/security_descriptor_cell.c
+	(hcheck_security_descriptor_cell_pass): Add check for
+	duplicate secdescs
+
+2006-11-29  James LewisMoss  <dres@lewismoss.org>
+
+	* rregadmin/hive/key_cell.c (key_cell_get_parseable_output): new
+	method
+
+	* rregadmin/util/path.h: change RRA_PATH_MODE_DEFAULT to
+	RRA_PATH_MODE_WIN
+
+	* rregadmin/util/value.c (value_create_from_string): Handle multi
+	strings as well.
+
+2006-11-09  James LewisMoss  <jlm@racemi.com>
+
+	* Rename from hivetools to rregadmin.
+
+2006-10-20  gettextize  <bug-gnu-gettext@gnu.org>
+
+	* m4/codeset.m4: New file, from gettext-0.15.
+	* m4/gettext.m4: New file, from gettext-0.15.
+	* m4/glibc2.m4: New file, from gettext-0.15.
+	* m4/glibc21.m4: New file, from gettext-0.15.
+	* m4/iconv.m4: New file, from gettext-0.15.
+	* m4/intdiv0.m4: New file, from gettext-0.15.
+	* m4/intmax.m4: New file, from gettext-0.15.
+	* m4/inttypes_h.m4: New file, from gettext-0.15.
+	* m4/inttypes-h.m4: New file, from gettext-0.15.
+	* m4/inttypes-pri.m4: New file, from gettext-0.15.
+	* m4/lcmessage.m4: New file, from gettext-0.15.
+	* m4/lib-ld.m4: New file, from gettext-0.15.
+	* m4/lib-link.m4: New file, from gettext-0.15.
+	* m4/lib-prefix.m4: New file, from gettext-0.15.
+	* m4/lock.m4: New file, from gettext-0.15.
+	* m4/longdouble.m4: New file, from gettext-0.15.
+	* m4/longlong.m4: New file, from gettext-0.15.
+	* m4/nls.m4: New file, from gettext-0.15.
+	* m4/po.m4: New file, from gettext-0.15.
+	* m4/printf-posix.m4: New file, from gettext-0.15.
+	* m4/progtest.m4: New file, from gettext-0.15.
+	* m4/signed.m4: New file, from gettext-0.15.
+	* m4/size_max.m4: New file, from gettext-0.15.
+	* m4/stdint_h.m4: New file, from gettext-0.15.
+	* m4/uintmax_t.m4: New file, from gettext-0.15.
+	* m4/ulonglong.m4: New file, from gettext-0.15.
+	* m4/visibility.m4: New file, from gettext-0.15.
+	* m4/wchar_t.m4: New file, from gettext-0.15.
+	* m4/wint_t.m4: New file, from gettext-0.15.
+	* m4/xsize.m4: New file, from gettext-0.15.
+	* m4/Makefile.am (EXTRA_DIST): Add the new files.
+	* Makefile.am (SUBDIRS): Add po.
+	(EXTRA_DIST): Add config.rpath.
+	* configure.ac (AC_CONFIG_FILES): Add po/Makefile.in.
+
+2006-10-06  James LewisMoss  <dres@lewismoss.org>
+
+	* hivetools/util/TEST/test_path.cpp (namespace): new tests
+	test_parse1 and test_parse_winmode1
+
+	* hivetools/util/path.c (is_path_delim): Check for tag
+	ONLY_WIN_DELIM before accepting / as a path delimiter.
+
+2006-08-02  James LewisMoss  <dres@lewismoss.org>
+
+	* hivetools/hive/hive.c (hive_write): Rename from writeHive
+	(hive_close): rename from closeHive
+	(hive_open): rename from openHive
+
+2006-08-01  James LewisMoss  <dres@lewismoss.org>
+
+	* hivetools/misc/varbuf.c (vbuf_grow): Clean up things.

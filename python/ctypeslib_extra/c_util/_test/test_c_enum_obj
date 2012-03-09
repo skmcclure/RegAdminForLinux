@@ -1,0 +1,68 @@
+#! /usr/bin/env python
+
+import unittest
+
+try:
+    import rra_test_utils
+except:
+    import sys
+    sys.path = sys.path + [ "../../..", "../../../TEST/lib" ]
+    import rra_test_utils
+
+from ctypeslib_extra.c_util import c_enum_obj
+
+
+class TestCEnumObj(rra_test_utils.RraTestCase):
+
+    def test_create1(self):
+
+        o1 = c_enum_obj.CEnumObj()
+
+        return
+
+    def test_enum1(self):
+
+        class AEnum(c_enum_obj.CEnumObj):
+            pass
+
+        self.assertFalse(hasattr(AEnum, "FOO"))
+        self.assertFalse(hasattr(AEnum, "BAR"))
+        self.assertFalse(hasattr(AEnum, "BAZ"))
+        self.assertFalse(hasattr(AEnum, "BEE"))
+        self.assertFalse(hasattr(AEnum, "BOO"))
+        self.assertFalse(hasattr(AEnum, "DOO"))
+        self.assertFalse(hasattr(AEnum, "BLAH"))
+        self.assertFalse(hasattr(AEnum, "BLEH"))
+        self.assertFalse(hasattr(AEnum, "BUT"))
+        self.assertFalse(hasattr(AEnum, "AND"))
+
+        AEnum.initialize_from_module(
+            module_name="enum_t1_wrapper",
+            type_name="AType1", include_patterns=["A_VAL_(.*)"])
+
+        self.assertTrue(hasattr(AEnum, "FOO"))
+        self.assertTrue(hasattr(AEnum, "BAR"))
+        self.assertTrue(hasattr(AEnum, "BAZ"))
+        self.assertTrue(hasattr(AEnum, "BEE"))
+        self.assertTrue(hasattr(AEnum, "BOO"))
+        self.assertTrue(hasattr(AEnum, "DOO"))
+        self.assertTrue(hasattr(AEnum, "BLAH"))
+        self.assertTrue(hasattr(AEnum, "BLEH"))
+        self.assertTrue(hasattr(AEnum, "BUT"))
+        self.assertTrue(hasattr(AEnum, "AND"))
+
+        self.assertEqual(AEnum.FOO, 0)
+        self.assertEqual(AEnum.BAR, 1)
+        self.assertEqual(AEnum.BAZ, 2)
+        self.assertEqual(AEnum.BEE, 3)
+        self.assertEqual(AEnum.BOO, 4)
+        self.assertEqual(AEnum.DOO, 5)
+        self.assertEqual(AEnum.BLAH, 6)
+        self.assertEqual(AEnum.BLEH, 7)
+        self.assertEqual(AEnum.BUT, 8)
+        self.assertEqual(AEnum.AND, 9)
+
+        return
+
+if __name__ == '__main__':
+    rra_test_utils.main()

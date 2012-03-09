@@ -1,0 +1,55 @@
+
+** Priority High
+
+ - Rename key and value support.
+ - Move key and value support.
+ - SAM write support.
+ - Make registry tree look like full tree with key_cells and value_cells.
+ - Fuse program.
+
+** Priority Medium
+
+ - Profile diff code.
+ - Generate test data with simple changes in windows and make sure we
+   make the same changes.
+ - Need Win98 test data.
+ - Fix the tests in rregadmin/basicapi/TEST
+ - (C) Allow binary data for REG_NONE.
+ - (C) Sometimes programs put in SZ values when they really mean
+   BINARY. Sense this. It's bad because the utf16 to utf8 translation
+   really messes with the content.
+
+** Priority Low
+
+ - Write parser and script for inf "patches"
+ - Add repair code to hive_check.
+ - Add GError support to functions.
+ - Add check method to registry.
+ - Handle MULTI_SZ separated by something other than 0s.
+ - Gather some profiling data and act on it.  Much improvement.  More
+   improvements can be done in the offset code.
+
+** Think About
+
+ - When to split a key list cell into ri parts?  Code to do so.
+ - Add free cell lists
+
+** Likely Never
+
+ - Support REG_LINK values
+ - Some better support for REG_-RESOURCE- types.
+ - Add check for maximum value size == 2048.
+   Despite what the docs say this seems to be ignored. So don't do.
+ - make reglib API as similar to win32 registry API as possible in order to
+   - provide some sort of win32 pass-through in reglib: If reglib, when
+     compiled under Windows, could bypass its own hive access routines
+     and use win32 instead then it could be used to manipulate online
+     registry data.
+   - port to reglib: It should be eas(y|ier) to port Windows programs
+     that use the win32 registry API.
+   - port away from reglib: Since regtools use an API that is almost
+     identical to the win32 registry API it should be eas(y|ier) to
+     modify regtools to use win32 api directly.
+ - Add other pseudo-keys in rregadmin/basicapi/regkeygen
+ - Convert the posixapi to use the new interfaces.
+ - Convert the winapi to use the new interfaces.
